@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Game",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-I", "include",
+                "${workspaceFolder}/src/*.cpp",
+                "${workspaceFolder}/src/Core/*.cpp",
+                "${workspaceFolder}/src/Core/input/*.cpp",
+                "-o", "${workspaceFolder}/game.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
+        }
+    ]
+}
