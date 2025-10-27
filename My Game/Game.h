@@ -9,6 +9,8 @@
 #include "SpriteDesc.h"
 #include "SpriteRenderer.h"
 #include "TileManager.h"
+#include "InventoryManager.h"
+
 
 /// \brief The game class.
 ///
@@ -32,6 +34,9 @@ class CGame:
     LSpriteRenderer* m_pRenderer = nullptr; ///< Pointer to renderer.
     CTileManager* m_pTileManager = nullptr;
     CPlayer* m_pPlayer = nullptr;
+
+
+	CInventoryManager* m_pInventory = nullptr; ///< Pointer to inventory manager.
 
     void LoadImages(); ///< Load images.
     void LoadSounds(); ///< Load sounds.

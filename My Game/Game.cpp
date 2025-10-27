@@ -16,6 +16,8 @@
 
 CGame::~CGame(){
   delete m_pSpriteDesc;
+  delete m_pInventory; // cleans inventory
+
 } //destructor
 
 /// Create the renderer and the sprite descriptor load images and sounds, and
@@ -30,7 +32,8 @@ void CGame::Initialize(){
   m_pTileManager->LoadMap("Media/Maps/testmap.txt");
   m_pPlayer = new CPlayer(m_pRenderer);
 
-
+  // inv init
+  m_pInventory = new CInventoryManager(m_pRenderer);
  
   LoadSounds(); //load the sounds for this game
 
@@ -52,6 +55,14 @@ void CGame::LoadImages(){
   m_pRenderer->Load(eSprite::Pig, "pig");
   m_pRenderer->Load(eSprite::Dirt, "dirt");
 
+  m_pRenderer->Load(eSprite::InventorySlot, "inventory_slot");
+  m_pRenderer->Load(eSprite::InventoryPanel, "inventory_panel");
+
+  // Load item sprites
+  m_pRenderer->Load(eSprite::ItemPotion, "item_potion");
+  m_pRenderer->Load(eSprite::ItemKey, "item_key");
+  m_pRenderer->Load(eSprite::ItemCoin, "item_coin");
+
   m_pRenderer->EndResourceUpload();
 } //LoadImages
 
@@ -69,6 +80,8 @@ void CGame::LoadSounds(){
 void CGame::Release(){
   delete m_pRenderer;
   delete m_pPlayer;
+  delete m_pInventory;
+
   m_pRenderer = nullptr; //for safety
 } //Release
 
@@ -80,6 +93,13 @@ void CGame::BeginGame(){
   delete m_pSpriteDesc;
   m_pSpriteDesc = new LSpriteDesc2D((UINT)eSprite::TextWheel, m_vWinCenter); 
   m_pSpriteDesc = new LSpriteDesc2D((UINT)eSprite::Pig, m_vWinCenter / 4);
+
+  // Add some test items to inventory
+  CItem* potion = new CItem(1, "Health Potion", "Restores 50 HP", eSprite::ItemPotion, eItemType::Consumable);
+  m_pInventory->AddItem(potion);
+
+  CItem* key = new CItem(2, "Rusty Key", "Opens old doors", eSprite::ItemKey, eItemType::QuestItem, false);
+  m_pInventory->AddItem(key);
 } //BeginGame
 
 /// Poll the keyboard state and respond to the key presses that happened since
@@ -107,6 +127,13 @@ void CGame::KeyboardHandler(){
 
     BeginGame(); //restart game
 
+  // Toggle inventory with 'I' key
+  if (m_pKeyboard->TriggerDown('I'))
+      m_pInventory->Toggle();
+
+  // Handle inventory input when open
+  if (m_pInventory->IsOpen())
+      m_pInventory->HandleInput(m_pKeyboard);
 
 } //KeyboardHandler
 
@@ -133,6 +160,10 @@ void CGame::RenderFrame(){
 
   if (m_pPlayer)
   m_pPlayer->Draw();
+
+  if (m_pInventory)
+      m_pInventory->Draw();
+
   else
 	  OutputDebugStringA("m_pPlayer is null\n");
 
@@ -153,7 +184,9 @@ void CGame::ProcessFrame(){
   m_pAudio->BeginFrame(); //notify audio player that frame has begun
   
   float dt = m_pTimer->GetFrameTime();
-  m_pPlayer->Update(dt, m_pKeyboard, m_pTileManager);
+  
+  if (!m_pInventory->IsOpen())
+      m_pPlayer->Update(dt, m_pKeyboard, m_pTileManager);
 
 
   m_pTimer->Tick([&](){ //all time-dependent function calls should go here
