@@ -57,12 +57,14 @@ void CGame::LoadImages(){
 
   m_pRenderer->Load(eSprite::InventorySlot, "inventory_slot");
   m_pRenderer->Load(eSprite::InventoryPanel, "inventory_panel");
+  m_pRenderer->Load(eSprite::InventorySlotSelected, "inventory_slot_selected");
 
   // Load item sprites
   m_pRenderer->Load(eSprite::ItemPotion, "item_potion");
   m_pRenderer->Load(eSprite::ItemKey, "item_key");
   m_pRenderer->Load(eSprite::ItemCoin, "item_coin");
-
+  m_pRenderer->Load(eSprite::ItemApple, "item_apple");
+  m_pRenderer->Load(eSprite::ItemShield, "item_shield");
   m_pRenderer->EndResourceUpload();
 } //LoadImages
 
@@ -100,6 +102,17 @@ void CGame::BeginGame(){
 
   CItem* key = new CItem(2, "Rusty Key", "Opens old doors", eSprite::ItemKey, eItemType::QuestItem, false);
   m_pInventory->AddItem(key);
+
+  CItem* apple = new CItem(5, "Apple", "Restores 10 HP",
+      eSprite::ItemApple, eItemType::Consumable,
+      true, 20);
+  apple->SetQuantity(5);
+  m_pInventory->AddItem(apple);
+
+  CItem* shield = new CItem(6, "Wooden Shield", "Blocks some damage",
+      eSprite::ItemShield, eItemType::Equipment,
+      false, 1);
+  m_pInventory->AddItem(shield);
 } //BeginGame
 
 /// Poll the keyboard state and respond to the key presses that happened since

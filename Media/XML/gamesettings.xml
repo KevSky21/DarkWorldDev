@@ -20,12 +20,15 @@
     <!-- Inventory UI -->
     <sprite name="inventory_slot" file="inventory_slot.png"/>
     <sprite name="inventory_panel" file="inventory_panel.png"/>
+    <sprite name="inventory_slot_selected" file="inventory_slot_selected.png"/>
     
     <!-- Items -->
     <sprite name="item_potion" file="item_potion.png"/>
     <sprite name="item_key" file="item_key.png"/>
     <sprite name="item_coin" file="item_coin.png"/>
     <sprite name="item_sword" file="item_sword.png"/>
+    <sprite name="item_apple" file="item_apple.png"/>
+    <sprite name="item_shield" file="item_shield.png"/>
   </sprites>
 
   <!-- sound -->

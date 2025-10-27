@@ -26,6 +26,8 @@ enum class eSprite: UINT{
   ItemKey,		// key
   ItemCoin,		// coin
   ItemSword,	//sword
+  ItemShield,	//shield
+  ItemApple,	//apple
   
   Size  //MUST BE LAST
 }; //eSprite

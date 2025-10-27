@@ -1,6 +1,4 @@
 ﻿  Game.cpp
-  InventoryManager.cpp
-  Item.cpp
-  Main.cpp
+  TileManager.cpp
   Generating Code...
   My Game.vcxproj -> C:\Users\aaron\Documents\DarkWorldDev\x64\Debug\Game.exe

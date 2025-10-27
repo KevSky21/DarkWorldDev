@@ -20,10 +20,10 @@ private:
     LSpriteRenderer* m_pRenderer = nullptr; ///< Pointer to renderer
 
     // UI Layout constants
-    const float m_fSlotSize = 48.0f;        ///< Size of each inventory slot
-    const float m_fSlotPadding = 4.0f;      ///< Padding between slots
+    const float m_fSlotSize = 64.0f;        ///< Size of each inventory slot (matches dirt tile)
+    const float m_fSlotPadding = 8.0f;      ///< Padding between slots
     const int m_nSlotsPerRow = 6;           ///< Number of slots per row
-    Vector2 m_vInventoryPos = { 200.0f, 150.0f }; ///< Top-left position of inventory
+    Vector2 m_vInventoryPos = { 150.0f, 100.0f }; ///< Top-left position of inventory
 
     // UI Colors (RGBA)
     Vector4 m_cSlotBackground = { 0.2f, 0.2f, 0.2f, 0.9f };

@@ -198,9 +198,17 @@ void CInventoryManager::DropSelectedItem() {
 void CInventoryManager::DrawSlot(int slotIndex, const Vector2& pos) {
     LSpriteDesc2D desc;
 
-    // Draw slot background (you'll need a sprite for this)
-    // For now, we'll skip the background and just draw the item
+    // Draw slot background
+    if (slotIndex == m_nSelectedSlot) {
+        desc.m_nSpriteIndex = (UINT)eSprite::InventorySlotSelected;
+    }
+    else {
+        desc.m_nSpriteIndex = (UINT)eSprite::InventorySlot;
+    }
+    desc.m_vPos = pos + Vector2(m_fSlotSize / 2, m_fSlotSize / 2);
+    m_pRenderer->Draw(&desc);
 
+    // Draw item if slot has one
     CItem* item = m_vItems[slotIndex];
     if (item) {
         desc.m_nSpriteIndex = (UINT)item->GetSprite();
@@ -213,12 +221,6 @@ void CInventoryManager::DrawSlot(int slotIndex, const Vector2& pos) {
             m_pRenderer->DrawScreenText(qtyStr.c_str(),
                 pos + Vector2(m_fSlotSize - 16, m_fSlotSize - 8));
         }
-    }
-
-    // Draw selection highlight
-    if (slotIndex == m_nSelectedSlot) {
-        // TODO: Draw selection border/highlight
-        // You could draw a colored rectangle or different sprite here
     }
 }
 

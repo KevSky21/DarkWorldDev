@@ -1,0 +1,10 @@
+﻿  Game.cpp
+  InventoryManager.cpp
+  Item.cpp
+  Main.cpp
+  Player.cpp
+  TileManager.cpp
+  Generating code
+  Not all modules are compiled with -Gy (function comdat), build without incremental LTCG.
+  Finished generating code
+  My Game.vcxproj -> C:\Users\aaron\Documents\DarkWorldDev\x64\Release\Game.exe
