@@ -16,6 +16,19 @@ private:
     float m_fRadius = 16.0f;
     LSpriteRenderer* m_pRenderer = nullptr;
 
+    float m_fGravity = -980.0f;       // pixels per second^2
+    float m_fJumpSpeed = 450.0f;      // upward impulse
+    bool m_bIsGrounded = false;       // whether player is standing on floor
+
+    bool m_bIsAttacking = false;
+    float m_fAttackCooldown = 0.5f;   // seconds between attacks
+    float m_fAttackTimer = 0.0f;
+    float m_fAttackRange = 40.0f;     // pixels in front of player
+    float m_fAttackRadius = 16.0f;    // size of attack hitbox
+
+    //-- Test for visual hitbox
+    int m_iFacingDir = 1; // 1 = right, -1 = left
+
 
 public:
     CPlayer(LSpriteRenderer* renderer) : m_pRenderer(renderer) {}
