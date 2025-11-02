@@ -21,32 +21,29 @@
 class CPlayer;
 class CTileManager;
 
+class CGame : public LComponent, public LSettings {
 
-class CGame: 
-  public LComponent, 
-  public LSettings{ 
+private:
+  bool m_bDrawFrameRate = false;          ///< Draw the frame rate.
+  LSpriteDesc2D *m_pSpriteDesc = nullptr; ///< Sprite descriptor.
+  LSpriteRenderer *m_pRenderer = nullptr; ///< Pointer to renderer.
+  CTileManager *m_pTileManager = nullptr;
+  CPlayer *m_pPlayer = nullptr;
 
-  private:
-    bool m_bDrawFrameRate = false; ///< Draw the frame rate.
-    LSpriteDesc2D* m_pSpriteDesc = nullptr; ///< Sprite descriptor.
-    LSpriteRenderer* m_pRenderer = nullptr; ///< Pointer to renderer.
-    CTileManager* m_pTileManager = nullptr;
-    CPlayer* m_pPlayer = nullptr;
+  void LoadImages();        ///< Load images.
+  void LoadSounds();        ///< Load sounds.
+  void BeginGame();         ///< Begin playing the game.
+  void CreateObjects() {}   ///< Create game objects.
+  void KeyboardHandler();   ///< The keyboard handler.
+  void RenderFrame();       ///< Render an animation frame.
+  void DrawFrameRateText(); ///< Draw frame rate text to screen.
 
-    void LoadImages(); ///< Load images.
-    void LoadSounds(); ///< Load sounds.
-    void BeginGame(); ///< Begin playing the game.
-    void CreateObjects(){}///< Create game objects.
-    void KeyboardHandler(); ///< The keyboard handler.
-    void RenderFrame(); ///< Render an animation frame.
-    void DrawFrameRateText(); ///< Draw frame rate text to screen.
+public:
+  ~CGame(); ///< Destructor.
 
-  public:
-    ~CGame(); ///< Destructor.
-
-    void Initialize(); ///< Initialize the game.
-    void ProcessFrame(); ///< Process an animation frame.
-    void Release(); ///< Release the renderer.
-}; //CGame
+  void Initialize();   ///< Initialize the game.
+  void ProcessFrame(); ///< Process an animation frame.
+  void Release();      ///< Release the renderer.
+}; // CGame
 
 #endif //__L4RC_GAME_GAME_H__
