@@ -14,8 +14,8 @@ class CPlayer {
   Vector2 m_vVel = {0.0f, 0.0f};
   float m_fSpeed = 200.0f;
   float m_fRadius = 16.0f;
-  unsigned int m_uHealth = 100;
-  const unsigned int m_uMaxHealth = 100;
+  UINT m_uHealth = 100;
+  const UINT m_uMaxHealth = 100;
   LSpriteRenderer *m_pRenderer = nullptr;
 
   float m_fGravity = -980.0f;   // pixels per second^2
@@ -35,8 +35,8 @@ class CPlayer {
   CPlayer(LSpriteRenderer *renderer) : m_pRenderer(renderer) {}
   void Update(float dt, LKeyboard *pKeyboard, CTileManager *pTiles);
   void Draw();
-  void TakeDamage(unsigned int damage);
-  void HealDamage(unsigned int heal);
+  void TakeDamage(UINT damage);
+  void HealDamage(UINT heal);
   const Vector2 &GetPos() const { return m_vPos; }
   float GetRadius() const { return m_fRadius; }
 };

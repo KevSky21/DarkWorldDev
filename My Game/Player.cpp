@@ -96,9 +96,17 @@ void CPlayer::Update(float dt, LKeyboard *pKeyboard, CTileManager *pTiles) {
 void CPlayer::Draw() {
   LSpriteDesc2D desc;
   desc.m_nSpriteIndex =
-      static_cast<UINT>(eSprite::Pig);  // temporary player sprite
+      m_bIsAttacking
+          ? static_cast<UINT>(eSprite::Jab)
+          : static_cast<UINT>(eSprite::Step);  // temporary player sprite
   desc.m_vPos = m_vPos;
   m_pRenderer->Draw(&desc);
+
+  Vector2 healthEndpointOne;
+  Vector2 healthEndpointTwo;
+
+  // m_pRenderer->DrawLine(eSprite::Dirt, &healthEndpointOne,
+  // &healthEndpointTwo);
 
   // --- Debug draw for attack hitbox ---
   if (m_bIsAttacking) {
@@ -110,7 +118,7 @@ void CPlayer::Draw() {
   }
 }
 
-void CPlayer::TakeDamage(unsigned int damage) {
+void CPlayer::TakeDamage(UINT damage) {
   if (m_uHealth - damage >= 0) {
     m_uHealth -= damage;
   } else {
@@ -118,7 +126,7 @@ void CPlayer::TakeDamage(unsigned int damage) {
   }
 }
 
-void CPlayer::HealDamage(unsigned int heal) {
+void CPlayer::HealDamage(UINT heal) {
   if (m_uHealth + heal <= m_uMaxHealth) {
     m_uHealth += heal;
   } else {

@@ -18,8 +18,10 @@ enum class eSprite : UINT {
   TextWheel,
   Pig,
   Dirt,
-  Size // MUST BE LAST
-}; // eSprite
+  Step,
+  Jab,
+  Size  // MUST BE LAST
+};  // eSprite
 
 /// \brief Sound enumerated type.
 ///
@@ -31,7 +33,7 @@ enum class eSound : UINT {
   Clang,
   Grunt,
   Oink,
-  Size // MUST BE LAST
-}; // eSound
+  Size  // MUST BE LAST
+};  // eSound
 
-#endif //__L4RC_GAME_GAMEDEFINES_H__
+#endif  //__L4RC_GAME_GAMEDEFINES_H__
