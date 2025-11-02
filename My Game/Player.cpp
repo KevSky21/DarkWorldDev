@@ -109,3 +109,19 @@ void CPlayer::Draw() {
     m_pRenderer->DrawBoundingBox(eSprite::Dirt, box);
   }
 }
+
+void CPlayer::TakeDamage(unsigned int damage) {
+  if (m_uHealth - damage >= 0) {
+    m_uHealth -= damage;
+  } else {
+    m_uHealth = 0;
+  }
+}
+
+void CPlayer::HealDamage(unsigned int heal) {
+  if (m_uHealth + heal <= m_uMaxHealth) {
+    m_uHealth += heal;
+  } else {
+    m_uHealth = m_uMaxHealth;
+  }
+}
