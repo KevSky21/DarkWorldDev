@@ -5,14 +5,14 @@
 
 class InputManager {
 public:
-    InputManager();
+  InputManager();
 
-    void Update(); // Call once per frame to update all input devices
+  void Update(); // Call once per frame to update all input devices
 
-    KeyboardController& GetKeyboard();
+  KeyboardController &GetKeyboard();
 
 private:
-    KeyboardController keyboard;
+  KeyboardController keyboard;
 };
 
 #endif // INPUTMANAGER_H

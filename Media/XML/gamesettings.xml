@@ -12,8 +12,10 @@
   <sprites path="Media\Images">
     <sprite name="background" file="background.png"/>
     <sprite name="textwheel" file="textwheel.png"/>
-	  <sprite name="pig" file="pig.png"/>
+    <sprite name="pig" file="pig.png"/>
     <sprite name="dirt" file="Dirt.png"/>
+    <sprite name="step" file="sprite-step.png"/>
+    <sprite name="jab" file="sprite-jab.png"/>
   </sprites>
 
   <!-- sound -->
