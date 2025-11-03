@@ -3,6 +3,7 @@
 
 #include "Game.h"
 
+#include "Common.h"
 #include "ComponentIncludes.h"
 #include "GameDefines.h"
 #include "Player.h"
@@ -88,17 +89,11 @@ void CGame::KeyboardHandler() {
   if (m_pKeyboard->TriggerDown(VK_F1)) // help
     ShellExecute(0, 0, "https://larc.unt.edu/code/physics/blank/", 0, 0,
                  SW_SHOW);
-  // if (m_pKeyboard->TriggerDown('O'))
-  //   m_pAudio->play(eSound::Oink);
 
   if (m_pKeyboard->TriggerDown(VK_F2)) // toggle frame rate
     m_bDrawFrameRate = !m_bDrawFrameRate;
 
-  // if(m_pKeyboard->TriggerDown(VK_SPACE)) //play sound
-  // m_pAudio->play(eSound::Clang);
 
-  // if(m_pKeyboard->TriggerUp(VK_SPACE)) //play sound
-  // m_pAudio->play(eSound::Grunt);
 
   if (m_pKeyboard->TriggerDown(VK_BACK)) // restart game
 
@@ -139,6 +134,33 @@ void CGame::RenderFrame() {
   m_pRenderer->EndFrame(); // required after rendering
 } // RenderFrame
 
+void CGame::FollowCamera() {
+  if (m_pPlayer == nullptr) return;  // safety
+
+  Vector3 vCameraPos(m_pPlayer->GetPos());  // player position
+
+     /*if (m_vWorldSize.x > m_nWinWidth) {  // world wider than screen
+        vCameraPos.x = std::max(
+            vCameraPos.x, m_nWinWidth / 2.0f);  // stay away from the left edge
+        vCameraPos.x = std::min(
+            vCameraPos.x,
+            m_vWorldSize.x - m_nWinWidth / 2.0f);  // stay away from the right edge
+      }  // if
+      else
+        vCameraPos.x = m_vWorldSize.x / 2.0f;  // center horizontally.
+
+      if (m_vWorldSize.y > m_nWinHeight) {  // world higher than screen
+        vCameraPos.y = std::max(
+            vCameraPos.y, m_nWinHeight / 2.0f);  // stay away from the bottom edge
+        vCameraPos.y = std::min(
+            vCameraPos.y,
+            m_vWorldSize.y - m_nWinHeight / 2.0f);  // stay away from the top edge
+      }  // if
+      else
+        vCameraPos.y = m_vWorldSize.y / 2.0f; */  // center vertically
+
+  m_pRenderer->SetCameraPos(vCameraPos);  // camera to player
+}  // FollowCamera
 /// This function will be called regularly to process and render a frame
 /// of animation, which involves the following. Handle keyboard input.
 /// Notify the  audio player at the start of each frame so that it can prevent
@@ -154,6 +176,7 @@ void CGame::ProcessFrame() {
 
   m_pTimer->Tick([&]() { // all time-dependent function calls should go here
     const float t = m_pTimer->GetFrameTime(); // frame interval in seconds
+    FollowCamera();
     // m_pSpriteDesc->m_fRoll += 0.125f*XM_2PI*t; //rotate at 1/8 RPS
   });
 

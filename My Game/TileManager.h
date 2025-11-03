@@ -3,8 +3,10 @@
 
 #pragma once
 
+#include "Common.h"
 #include "Sprite.h"
 #include "SpriteRenderer.h"
+#include "GameDefines.h"
 #include <vector>
 
 /// \brief The tile manager.

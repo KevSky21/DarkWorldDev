@@ -1,7 +1,8 @@
 #include "TileManager.h"
-#include "GameDefines.h"
+
 #include "Sprite.h"
 #include "SpriteRenderer.h"
+
 #include <fstream>
 #include <iostream>
 
@@ -53,7 +54,7 @@ void CTileManager::LoadMap(const char *filename) {
       }
     }
   }
-
+  //m_vWorldSize = Vector2((float)m_nWidth, (float)m_nHeight) * m_fTileSize;
   std::cout << "Loaded map: " << m_nWidth << "x" << m_nHeight << std::endl;
 }
 

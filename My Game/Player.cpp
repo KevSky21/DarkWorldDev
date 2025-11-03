@@ -1,5 +1,6 @@
 #include "Player.h"
 
+
 #include "GameDefines.h"
 #include "Keyboard.h"
 #include "SpriteRenderer.h"
@@ -24,17 +25,12 @@ void CPlayer::Update(float dt, LKeyboard *pKeyboard, CTileManager *pTiles) {
   // --- Gravity ---
   m_vVel.y += m_fGravity * dt;  // apply gravity (downward acceleration)
 
-  // --- Jump input ---
-  if (m_bIsGrounded && pKeyboard->TriggerDown(VK_SPACE)) {
-    m_vVel.y = m_fJumpSpeed;  // jump impulse
-    m_bIsGrounded = false;
-  }
 
   // --- Predict new position separately for X and Y ---
   Vector2 newPos = m_vPos;
 
   // --- Collision check ---
-  if (pTiles && pTiles->CheckCollision(newPos, 16.0f)) {
+  if (pTiles && pTiles->CheckCollision(newPos, 12.0f)) {
     // Simple floor collision response
     if (m_vVel.y < 0) {  // falling
       m_vVel.y = 0;
@@ -42,6 +38,13 @@ void CPlayer::Update(float dt, LKeyboard *pKeyboard, CTileManager *pTiles) {
     }
     newPos = m_vPos;  // stop movement into wall
   } else {
+    m_bIsGrounded = false;
+  }
+
+   // --- Jump input ---
+  if (m_bIsGrounded && pKeyboard->TriggerDown(VK_SPACE)) {
+       
+    m_vVel.y = m_fJumpSpeed;  // jump impulse
     m_bIsGrounded = false;
   }
 

@@ -3,7 +3,7 @@
 
 #ifndef __L4RC_GAME_GAME_H__
 #define __L4RC_GAME_GAME_H__
-
+#include <iostream>
 #include "Component.h"
 #include "Settings.h"
 #include "SpriteDesc.h"
@@ -37,8 +37,9 @@ private:
   void KeyboardHandler();   ///< The keyboard handler.
   void RenderFrame();       ///< Render an animation frame.
   void DrawFrameRateText(); ///< Draw frame rate text to screen.
+  void FollowCamera();       ///< Make camera follow player character.
 
-public:
+ public:
   ~CGame(); ///< Destructor.
 
   void Initialize();   ///< Initialize the game.
