@@ -46,6 +46,8 @@ void CGame::LoadImages() {
   // m_pRenderer->Load(eSprite::TextWheel,  "textwheel");
   m_pRenderer->Load(eSprite::Pig, "pig");
   m_pRenderer->Load(eSprite::Dirt, "dirt");
+  m_pRenderer->Load(eSprite::Step, "step");  
+  m_pRenderer->Load(eSprite::Jab, "jab");    
 
   m_pRenderer->EndResourceUpload();
 } // LoadImages
