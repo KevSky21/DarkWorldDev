@@ -1,0 +1,25 @@
+# Visual Studio cache
+.vs/
+
+# Build outputs
+Debug/
+Release/
+x64/
+bin/
+obj/
+
+# Intermediate files
+*.obj
+*.pdb
+*.idb
+*.ipdb
+*.iobj
+*.ilk
+*.tlog
+*.log
+
+# User-specific settings
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
