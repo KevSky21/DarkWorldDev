@@ -1,0 +1,139 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|solutionrelative:My Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|solutionrelative:My Game\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|solutionrelative:My Game\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\TileManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|solutionrelative:My Game\\TileManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\TileManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|solutionrelative:My Game\\TileManager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|solutionrelative:My Game\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|solutionrelative:My Game\\Common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TileManager.h",
+              "DocumentMoniker": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\TileManager.h",
+              "RelativeDocumentMoniker": "My Game\\TileManager.h",
+              "ToolTip": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\TileManager.h",
+              "RelativeToolTip": "My Game\\TileManager.h",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABsAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-03T16:01:33.303Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TileManager.cpp",
+              "DocumentMoniker": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\TileManager.cpp",
+              "RelativeDocumentMoniker": "My Game\\TileManager.cpp",
+              "ToolTip": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\TileManager.cpp",
+              "RelativeToolTip": "My Game\\TileManager.cpp",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAADgAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-11-03T14:53:24.971Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Game.cpp",
+              "DocumentMoniker": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Game.cpp",
+              "RelativeDocumentMoniker": "My Game\\Game.cpp",
+              "ToolTip": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Game.cpp*",
+              "RelativeToolTip": "My Game\\Game.cpp*",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAUwFEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-11-03T14:48:40.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Common.h",
+              "DocumentMoniker": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Common.h",
+              "RelativeDocumentMoniker": "My Game\\Common.h",
+              "ToolTip": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Common.h",
+              "RelativeToolTip": "My Game\\Common.h",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-03T14:52:34.143Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Game.h",
+              "DocumentMoniker": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Game.h",
+              "RelativeDocumentMoniker": "My Game\\Game.h",
+              "ToolTip": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Game.h",
+              "RelativeToolTip": "My Game\\Game.h",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAUAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-11-03T14:47:25.919Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Player.cpp",
+              "DocumentMoniker": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Player.cpp",
+              "RelativeDocumentMoniker": "My Game\\Player.cpp",
+              "ToolTip": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Player.cpp*",
+              "RelativeToolTip": "My Game\\Player.cpp*",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACAAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-11-03T14:36:28.145Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Main.cpp",
+              "DocumentMoniker": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Main.cpp",
+              "RelativeDocumentMoniker": "My Game\\Main.cpp",
+              "ToolTip": "C:\\Users\\Kyle Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Main.cpp",
+              "RelativeToolTip": "My Game\\Main.cpp",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAB8AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-11-03T14:36:10.04Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
