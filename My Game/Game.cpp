@@ -19,7 +19,7 @@ CGame::~CGame(){
   delete m_pInventory; // cleans inventory
 
 } //destructor
-CGame::~CGame() { delete m_pSpriteDesc; } // destructor
+
 
 /// Create the renderer and the sprite descriptor load images and sounds, and
 /// begin the game.
@@ -174,9 +174,7 @@ void CGame::RenderFrame() {
       m_pInventory->Draw();
 
     m_pPlayer->Draw();
-  else
-    OutputDebugStringA("m_pPlayer is null\n");
-
+ 
   if (m_bDrawFrameRate)
     DrawFrameRateText();
 
