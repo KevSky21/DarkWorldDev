@@ -207,20 +207,22 @@ void CInventoryManager::Draw() {
     DrawSlot(i, slotPos);
   }
 
-  // Draw title - use absolute screen coordinates
+  // Draw title
   const char* title = "Inventory";
-  Vector2 titlePos(60.0f, 50.0f);  // Fixed screen position
+  Vector2 titlePos(60.0f, 50.0f);
   m_pRenderer->DrawScreenText(title, titlePos);
 
-  // Draw selected item info
   if (m_nSelectedSlot >= 0 && m_vItems[m_nSelectedSlot]) {
+  // Draw selected item info BELOW the inventory
     CItem* item = m_vItems[m_nSelectedSlot];
 
-    int numRows = (m_nMaxSlots + m_nSlotsPerRow - 1) / m_nSlotsPerRow;
-    float inventoryHeight = numRows * (m_fSlotSize + m_fSlotPadding);
+    // Calculate bottom of inventory grid
+    int numRows =
+        (m_nMaxSlots + m_nSlotsPerRow - 1) / m_nSlotsPerRow;  // 4 rows
+    float bottomOfInventory =
+        m_vInventoryPos.y + (numRows * (m_fSlotSize + m_fSlotPadding));
 
-    // Use fixed screen coordinates, not relative to m_vInventoryPos
-    Vector2 infoPos(60.0f, 50.0f + inventoryHeight + 40);
+    Vector2 infoPos(60.0f, bottomOfInventory + 30);
 
     m_pRenderer->DrawScreenText(item->GetName().c_str(), infoPos);
     m_pRenderer->DrawScreenText(item->GetDescription().c_str(),
