@@ -23,7 +23,7 @@ private:
     const float m_fSlotSize = 64.0f;        ///< Size of each inventory slot (matches dirt tile)
     const float m_fSlotPadding = 8.0f;      ///< Padding between slots
     const int m_nSlotsPerRow = 6;           ///< Number of slots per row
-    Vector2 m_vInventoryPos = { 150.0f, 100.0f }; ///< Top-left position of inventory
+    Vector2 m_vInventoryPos = { 60.0f, 90.0f }; ///< Top-left position of inventory
 
     // UI Colors (RGBA)
     Vector4 m_cSlotBackground = { 0.2f, 0.2f, 0.2f, 0.9f };

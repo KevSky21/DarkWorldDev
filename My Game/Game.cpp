@@ -164,16 +164,26 @@ void CGame::RenderFrame() {
 
   if (m_pTileManager)
     m_pTileManager->Draw();
-  else
-    OutputDebugStringA("m_pTileManager is null\n");
+  
 
   if (m_pPlayer)
   m_pPlayer->Draw();
 
-  if (m_pInventory)
-      m_pInventory->Draw();
+  // Draw inventory in screen space (not affected by camera)
+  if (m_pInventory && m_pInventory->IsOpen()) {
+    // Save current camera position
+    Vector3 savedCameraPos = m_pRenderer->GetCameraPos();
 
-    m_pPlayer->Draw();
+    // Reset camera to origin for UI rendering
+    m_pRenderer->SetCameraPos(Vector3::Zero);
+
+    // Draw inventory
+    m_pInventory->Draw();
+
+    // Restore camera position
+    m_pRenderer->SetCameraPos(savedCameraPos);
+  }
+
  
   if (m_bDrawFrameRate)
     DrawFrameRateText();

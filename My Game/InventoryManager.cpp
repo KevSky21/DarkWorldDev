@@ -195,68 +195,69 @@ void CInventoryManager::DropSelectedItem() {
 /// \param slotIndex Index of slot to draw
 /// \param pos Position to draw at
 
-void CInventoryManager::DrawSlot(int slotIndex, const Vector2& pos) {
-    LSpriteDesc2D desc;
-
-    // Draw slot background
-    if (slotIndex == m_nSelectedSlot) {
-        desc.m_nSpriteIndex = (UINT)eSprite::InventorySlotSelected;
-    }
-    else {
-        desc.m_nSpriteIndex = (UINT)eSprite::InventorySlot;
-    }
-    desc.m_vPos = pos + Vector2(m_fSlotSize / 2, m_fSlotSize / 2);
-    m_pRenderer->Draw(&desc);
-
-    // Draw item if slot has one
-    CItem* item = m_vItems[slotIndex];
-    if (item) {
-        desc.m_nSpriteIndex = (UINT)item->GetSprite();
-        desc.m_vPos = pos + Vector2(m_fSlotSize / 2, m_fSlotSize / 2);
-        m_pRenderer->Draw(&desc);
-
-        // Draw quantity if stackable and > 1
-        if (item->IsStackable() && item->GetQuantity() > 1) {
-            std::string qtyStr = std::to_string(item->GetQuantity());
-            m_pRenderer->DrawScreenText(qtyStr.c_str(),
-                pos + Vector2(m_fSlotSize - 16, m_fSlotSize - 8));
-        }
-    }
-}
 
 /// Draw the entire inventory UI.
 
 void CInventoryManager::Draw() {
-    if (!m_bIsOpen) return;
+  if (!m_bIsOpen) return;
 
-    // Draw inventory background panel
-    // TODO: Add a semi-transparent background sprite
+  // Draw all slots first
+  for (int i = 0; i < m_nMaxSlots; i++) {
+    Vector2 slotPos = GetSlotPosition(i);
+    DrawSlot(i, slotPos);
+  }
 
-    // Draw title
-    const char* title = "Inventory";
-    m_pRenderer->DrawScreenText(title, m_vInventoryPos - Vector2(0, 30));
+  // Draw title - use absolute screen coordinates
+  const char* title = "Inventory";
+  Vector2 titlePos(60.0f, 50.0f);  // Fixed screen position
+  m_pRenderer->DrawScreenText(title, titlePos);
 
-    // Draw all slots
-    for (int i = 0; i < m_nMaxSlots; i++) {
-        Vector2 slotPos = GetSlotPosition(i);
-        DrawSlot(i, slotPos);
-    }
+  // Draw selected item info
+  if (m_nSelectedSlot >= 0 && m_vItems[m_nSelectedSlot]) {
+    CItem* item = m_vItems[m_nSelectedSlot];
 
-    // Draw selected item info
-    if (m_nSelectedSlot >= 0 && m_vItems[m_nSelectedSlot]) {
-        CItem* item = m_vItems[m_nSelectedSlot];
-        Vector2 infoPos = m_vInventoryPos + Vector2(0,
-            (m_nMaxSlots / m_nSlotsPerRow + 1) * (m_fSlotSize + m_fSlotPadding));
+    int numRows = (m_nMaxSlots + m_nSlotsPerRow - 1) / m_nSlotsPerRow;
+    float inventoryHeight = numRows * (m_fSlotSize + m_fSlotPadding);
 
-        m_pRenderer->DrawScreenText(item->GetName().c_str(), infoPos);
-        m_pRenderer->DrawScreenText(item->GetDescription().c_str(),
-            infoPos + Vector2(0, 20));
-    }
+    // Use fixed screen coordinates, not relative to m_vInventoryPos
+    Vector2 infoPos(60.0f, 50.0f + inventoryHeight + 40);
+
+    m_pRenderer->DrawScreenText(item->GetName().c_str(), infoPos);
+    m_pRenderer->DrawScreenText(item->GetDescription().c_str(),
+                                infoPos + Vector2(0, 25));
+  }
 }
 
-/// Check if inventory has room for an item.
-/// \param item Item to check
-/// \return True if can be added
+void CInventoryManager::DrawSlot(int slotIndex, const Vector2& pos) {
+  LSpriteDesc2D desc;
+
+  // Draw slot background
+  if (slotIndex == m_nSelectedSlot) {
+    desc.m_nSpriteIndex = (UINT)eSprite::InventorySlotSelected;
+  } else {
+    desc.m_nSpriteIndex = (UINT)eSprite::InventorySlot;
+  }
+  desc.m_vPos = pos + Vector2(m_fSlotSize / 2, m_fSlotSize / 2);
+  m_pRenderer->Draw(&desc);
+
+  // Draw item if slot has one
+  CItem* item = m_vItems[slotIndex];
+  if (item) {
+    desc.m_nSpriteIndex = (UINT)item->GetSprite();
+    desc.m_vPos = pos + Vector2(m_fSlotSize / 2, m_fSlotSize / 2);
+    m_pRenderer->Draw(&desc);
+
+    // Draw quantity if stackable and > 1
+    if (item->IsStackable() && item->GetQuantity() > 1) {
+      std::string qtyStr = std::to_string(item->GetQuantity());
+      // Use absolute position, not relative
+      Vector2 textPos(pos.x + m_fSlotSize - 18, pos.y + m_fSlotSize - 8);
+      m_pRenderer->DrawScreenText(qtyStr.c_str(), textPos);
+    }
+  }
+}
+
+
 
 bool CInventoryManager::HasRoom(CItem* item) const {
     if (!item) return false;
