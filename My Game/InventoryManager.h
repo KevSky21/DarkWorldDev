@@ -1,100 +1,151 @@
 #pragma once
 
 #include <vector>
+
 #include "Item.h"
-#include "SpriteRenderer.h"
 #include "Keyboard.h"
 #include "SimpleMath.h"
+#include "SpriteRenderer.h"
 
 using namespace DirectX::SimpleMath;
 
 /// \brief The inventory manager class.
-/// Manages item storage, UI display, and user interaction.
+/// Manages item storage, UI display, hotbar, and user interaction.
 class CInventoryManager {
-private:
-    std::vector<CItem*> m_vItems;    ///< Array of item slots
-    const int m_nMaxSlots = 24;      ///< Maximum inventory slots
-    int m_nSelectedSlot = -1;        ///< Currently selected slot (-1 = none)
-    bool m_bIsOpen = false;          ///< Whether inventory UI is visible
+ private:
+  std::vector<CItem*> m_vItems;         ///< Array of item slots
+  static const int m_nMaxSlots = 24;    ///< Maximum inventory slots
+  static const int m_nHotbarSlots = 6;  ///< Number of hotbar slots (first row)
+  int m_nSelectedSlot = 0;              ///< Currently selected slot
+  int m_nHotbarSelection = 0;  ///< Currently selected hotbar slot (0-5)
+  bool m_bIsOpen = false;      ///< Whether full inventory UI is visible
 
-    LSpriteRenderer* m_pRenderer = nullptr; ///< Pointer to renderer
+  LSpriteRenderer* m_pRenderer = nullptr;  ///< Pointer to renderer
 
-    // UI Layout constants
-    const float m_fSlotSize = 64.0f;        ///< Size of each inventory slot (matches dirt tile)
-    const float m_fSlotPadding = 8.0f;      ///< Padding between slots
-    const int m_nSlotsPerRow = 6;           ///< Number of slots per row
-    Vector2 m_vInventoryPos = { 60.0f, 90.0f }; ///< Top-left position of inventory
+  // Screen dimensions (set during initialization)
+  float m_fScreenWidth = 1280.0f;
+  float m_fScreenHeight = 720.0f;
 
-    // UI Colors (RGBA)
-    Vector4 m_cSlotBackground = { 0.2f, 0.2f, 0.2f, 0.9f };
-    Vector4 m_cSlotBorder = { 0.5f, 0.5f, 0.5f, 1.0f };
-    Vector4 m_cSelectedSlot = { 1.0f, 0.8f, 0.2f, 1.0f };
+  // UI Layout constants
+  static constexpr float m_fSlotSize = 64.0f;  ///< Size of each inventory slot
+  static constexpr float m_fSlotPadding = 4.0f;    ///< Padding between slots
+  static constexpr int m_nSlotsPerRow = 6;         ///< Number of slots per row
+  static constexpr float m_fPanelPadding = 20.0f;  ///< Padding inside panel
 
-    /// \brief Get the position of a slot by index.
-    Vector2 GetSlotPosition(int slotIndex) const;
+  // Calculated positions (updated in UpdateLayout)
+  Vector2 m_vInventoryPos;  ///< Top-left position of inventory grid
+  Vector2 m_vHotbarPos;     ///< Position of hotbar at bottom of screen
+  Vector2 m_vPanelPos;      ///< Position of background panel
+  Vector2 m_vPanelSize;     ///< Size of background panel
 
-    /// \brief Get slot index from screen position (for mouse input).
-    int GetSlotAtPosition(const Vector2& pos) const;
+  /// \brief Update layout positions based on screen size.
+  void UpdateLayout();
 
-    /// \brief Draw a single inventory slot.
-    void DrawSlot(int slotIndex, const Vector2& pos);
+  /// \brief Get the position of a slot by index (in inventory grid).
+  Vector2 GetSlotPosition(int slotIndex) const;
 
-public:
-    /// \brief Constructor.
-    /// \param renderer Pointer to sprite renderer
-    CInventoryManager(LSpriteRenderer* renderer);
+  /// \brief Get the position of a hotbar slot.
+  Vector2 GetHotbarSlotPosition(int slotIndex) const;
 
-    /// \brief Destructor - cleans up all items.
-    ~CInventoryManager();
+  /// \brief Get slot index from screen position (for mouse input).
+  int GetSlotAtPosition(const Vector2& pos) const;
 
-    /// \brief Add an item to the inventory.
-    /// \param item Pointer to item to add
-    /// \return True if successfully added
-    bool AddItem(CItem* item);
+  /// \brief Draw a single inventory slot.
+  /// \param slotIndex Index of slot to draw
+  /// \param pos Position to draw at
+  /// \param isHotbar Whether this is a hotbar slot
+  void DrawSlot(int slotIndex, const Vector2& pos, bool isHotbar = false);
 
-    /// \brief Remove an item from a specific slot.
-    /// \param slotIndex Index of slot to remove from
-    /// \return True if successfully removed
-    bool RemoveItem(int slotIndex);
+  /// \brief Draw the background panel.
+  void DrawPanel();
 
-    /// \brief Get item at specific slot.
-    /// \param slotIndex Slot index to check
-    /// \return Pointer to item or nullptr if slot empty
-    CItem* GetItem(int slotIndex) const;
+  /// \brief Draw the hotbar at the bottom of the screen.
+  void DrawHotbar();
 
-    /// \brief Use/activate the currently selected item.
-    void UseSelectedItem();
+  /// \brief Draw item tooltip/info for selected item.
+  void DrawItemInfo();
 
-    /// \brief Drop the currently selected item.
-    void DropSelectedItem();
+  /// \brief Convert sprite Y coordinate to text Y coordinate.
+  /// Sprites use Y-up (0 at bottom), text uses Y-down (0 at top).
+  float SpriteYToTextY(float spriteY) const;
 
-    /// \brief Toggle inventory open/closed.
-    void Toggle() { m_bIsOpen = !m_bIsOpen; }
+ public:
+  /// \brief Constructor.
+  /// \param renderer Pointer to sprite renderer
+  CInventoryManager(LSpriteRenderer* renderer);
 
-    /// \brief Check if inventory is open.
-    bool IsOpen() const { return m_bIsOpen; }
+  /// \brief Destructor - cleans up all items.
+  ~CInventoryManager();
 
-    /// \brief Set inventory open state.
-    void SetOpen(bool open) { m_bIsOpen = open; }
+  /// \brief Set screen dimensions for layout calculations.
+  /// \param width Screen width
+  /// \param height Screen height
+  void SetScreenSize(float width, float height);
 
-    /// \brief Handle keyboard input for inventory navigation.
-    /// \param pKeyboard Pointer to keyboard controller
-    void HandleInput(LKeyboard* pKeyboard);
+  /// \brief Add an item to the inventory.
+  /// \param item Pointer to item to add
+  /// \return True if successfully added
+  bool AddItem(CItem* item);
 
-    /// \brief Draw the inventory UI.
-    void Draw();
+  /// \brief Remove an item from a specific slot.
+  /// \param slotIndex Index of slot to remove from
+  /// \return True if successfully removed
+  bool RemoveItem(int slotIndex);
 
-    /// \brief Check if inventory has room for an item.
-    /// \param item Item to check
-    /// \return True if item can be added
-    bool HasRoom(CItem* item) const;
+  /// \brief Get item at specific slot.
+  /// \param slotIndex Slot index to check
+  /// \return Pointer to item or nullptr if slot empty
+  CItem* GetItem(int slotIndex) const;
 
-    /// \brief Get number of items of a specific type.
-    /// \param itemID Item ID to count
-    /// \return Total quantity
-    int GetItemCount(int itemID) const;
+  /// \brief Use/activate the currently selected item.
+  void UseSelectedItem();
 
-    /// \brief Move selection in direction.
-    /// \param direction -1 for left/up, +1 for right/down, -6/+6 for row up/down
-    void MoveSelection(int direction);
+  /// \brief Drop the currently selected item.
+  void DropSelectedItem();
+
+  /// \brief Toggle inventory open/closed.
+  void Toggle();
+
+  /// \brief Check if inventory is open.
+  bool IsOpen() const { return m_bIsOpen; }
+
+  /// \brief Set inventory open state.
+  void SetOpen(bool open) { m_bIsOpen = open; }
+
+  /// \brief Handle keyboard input for inventory navigation.
+  /// \param pKeyboard Pointer to keyboard controller
+  void HandleInput(LKeyboard* pKeyboard);
+
+  /// \brief Handle number key input for hotbar selection (1-6).
+  /// \param pKeyboard Pointer to keyboard controller
+  void HandleHotbarInput(LKeyboard* pKeyboard);
+
+  /// \brief Draw the full inventory UI (when open).
+  void Draw();
+
+  /// \brief Draw just the hotbar (always visible).
+  void DrawHotbarOnly();
+
+  /// \brief Check if inventory has room for an item.
+  /// \param item Item to check
+  /// \return True if item can be added
+  bool HasRoom(CItem* item) const;
+
+  /// \brief Get number of items of a specific type.
+  /// \param itemID Item ID to count
+  /// \return Total quantity
+  int GetItemCount(int itemID) const;
+
+  /// \brief Move selection in direction.
+  /// \param direction -1 for left/up, +1 for right/down, -6/+6 for row up/down
+  void MoveSelection(int direction);
+
+  /// \brief Get the currently selected hotbar slot.
+  int GetHotbarSelection() const { return m_nHotbarSelection; }
+
+  /// \brief Get item in currently selected hotbar slot.
+  CItem* GetHotbarItem() const;
+
+  /// \brief Use the item in the currently selected hotbar slot.
+  void UseHotbarItem();
 };

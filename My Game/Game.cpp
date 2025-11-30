@@ -14,12 +14,11 @@
 /// Delete the sprite descriptor. The renderer needs to be deleted before this
 /// destructor runs so it will be done elsewhere.
 
-CGame::~CGame(){
+CGame::~CGame() {
   delete m_pSpriteDesc;
-  delete m_pInventory; // cleans inventory
+  delete m_pInventory;  // cleans inventory
 
-} //destructor
-
+}  // destructor
 
 /// Create the renderer and the sprite descriptor load images and sounds, and
 /// begin the game.
@@ -27,19 +26,20 @@ CGame::~CGame(){
 void CGame::Initialize() {
   m_pRenderer = new LSpriteRenderer(eSpriteMode::Batched2D);
   m_pRenderer->Initialize(eSprite::Size);
-  LoadImages(); // load images from xml file list
+  LoadImages();  // load images from xml file list
 
   m_pTileManager = new CTileManager(m_pRenderer);
   m_pTileManager->LoadMap("Media/Maps/testmap.txt");
   m_pPlayer = new CPlayer(m_pRenderer);
 
-  // inv init
+  // Initialize inventory with screen dimensions
   m_pInventory = new CInventoryManager(m_pRenderer);
- 
-  LoadSounds(); //load the sounds for this game
+  m_pInventory->SetScreenSize((float)m_nWinWidth, (float)m_nWinHeight);
+
+  LoadSounds();  // load the sounds for this game
 
   BeginGame();
-} // Initialize
+}  // Initialize
 
 /// Load the specific images needed for this game. This is where `eSprite`
 /// values from `GameDefines.h` get tied to the names of sprite tags in
@@ -55,8 +55,8 @@ void CGame::LoadImages() {
   // m_pRenderer->Load(eSprite::TextWheel,  "textwheel");
   m_pRenderer->Load(eSprite::Pig, "pig");
   m_pRenderer->Load(eSprite::Dirt, "dirt");
-  m_pRenderer->Load(eSprite::Step, "step");  
-  m_pRenderer->Load(eSprite::Jab, "jab");    
+  m_pRenderer->Load(eSprite::Step, "step");
+  m_pRenderer->Load(eSprite::Jab, "jab");
 
   m_pRenderer->Load(eSprite::InventorySlot, "inventory_slot");
   m_pRenderer->Load(eSprite::InventoryPanel, "inventory_panel");
@@ -69,7 +69,7 @@ void CGame::LoadImages() {
   m_pRenderer->Load(eSprite::ItemApple, "item_apple");
   m_pRenderer->Load(eSprite::ItemShield, "item_shield");
   m_pRenderer->EndResourceUpload();
-} // LoadImages
+}  // LoadImages
 
 /// Initialize the audio player and load game sounds.
 
@@ -78,15 +78,15 @@ void CGame::LoadSounds() {
   //  m_pAudio->Load(eSound::Grunt, "grunt");
   // m_pAudio->Load(eSound::Clang, "clang");
   // m_pAudio->Load(eSound::Oink, "oink");
-} // LoadSounds
+}  // LoadSounds
 
 /// Release all of the DirectX12 objects by deleting the renderer.
 
 void CGame::Release() {
   delete m_pRenderer;
   delete m_pPlayer;
-  m_pRenderer = nullptr; // for safety
-} // Release
+  m_pRenderer = nullptr;  // for safety
+}  // Release
 
 /// Call this function to start a new game. This should be re-entrant so that
 /// you can restart a new game without having to shut down and restart the
@@ -98,52 +98,55 @@ void CGame::BeginGame() {
   m_pSpriteDesc = new LSpriteDesc2D((UINT)eSprite::Pig, m_vWinCenter / 4);
 
   // Add some test items to inventory
-  CItem* potion = new CItem(1, "Health Potion", "Restores 50 HP", eSprite::ItemPotion, eItemType::Consumable);
+  CItem* potion = new CItem(1, "Health Potion", "Restores 50 HP",
+                            eSprite::ItemPotion, eItemType::Consumable);
   m_pInventory->AddItem(potion);
 
-  CItem* key = new CItem(2, "Rusty Key", "Opens old doors", eSprite::ItemKey, eItemType::QuestItem, false);
+  CItem* key = new CItem(2, "Rusty Key", "Opens old doors", eSprite::ItemKey,
+                         eItemType::QuestItem, false);
   m_pInventory->AddItem(key);
 
-  CItem* apple = new CItem(5, "Apple", "Restores 10 HP",
-      eSprite::ItemApple, eItemType::Consumable,
-      true, 20);
+  CItem* apple = new CItem(5, "Apple", "Restores 10 HP", eSprite::ItemApple,
+                           eItemType::Consumable, true, 20);
   apple->SetQuantity(5);
   m_pInventory->AddItem(apple);
 
-  CItem* shield = new CItem(6, "Wooden Shield", "Blocks some damage",
-      eSprite::ItemShield, eItemType::Equipment,
-      false, 1);
+  CItem* shield =
+      new CItem(6, "Wooden Shield", "Blocks some damage", eSprite::ItemShield,
+                eItemType::Equipment, false, 1);
   m_pInventory->AddItem(shield);
-} //BeginGame
-
+}  // BeginGame
 
 /// Poll the keyboard state and respond to the key presses that happened since
 /// the last frame.
 
 void CGame::KeyboardHandler() {
-  m_pKeyboard->GetState(); // get current keyboard state
+  m_pKeyboard->GetState();  // get current keyboard state
 
-  if (m_pKeyboard->TriggerDown(VK_F1)) // help
+  if (m_pKeyboard->TriggerDown(VK_F1))  // help
     ShellExecute(0, 0, "https://larc.unt.edu/code/physics/blank/", 0, 0,
                  SW_SHOW);
 
-  if (m_pKeyboard->TriggerDown(VK_F2)) // toggle frame rate
+  if (m_pKeyboard->TriggerDown(VK_F2))  // toggle frame rate
     m_bDrawFrameRate = !m_bDrawFrameRate;
 
-
+  // Always handle hotbar input (number keys 1-6)
+  m_pInventory->HandleHotbarInput(m_pKeyboard);
 
   // Toggle inventory with 'I' key
-  if (m_pKeyboard->TriggerDown('I'))
-      m_pInventory->Toggle();
+  if (m_pKeyboard->TriggerDown('I')) m_pInventory->Toggle();
 
   // Handle inventory input when open
-  if (m_pInventory->IsOpen())
-      m_pInventory->HandleInput(m_pKeyboard);
-  if (m_pKeyboard->TriggerDown(VK_BACK)) // restart game
+  if (m_pInventory->IsOpen()) m_pInventory->HandleInput(m_pKeyboard);
 
-    BeginGame(); // restart game
+  // Use hotbar item with F key (when inventory is closed)
+  if (!m_pInventory->IsOpen() && m_pKeyboard->TriggerDown('F'))
+    m_pInventory->UseHotbarItem();
 
-} // KeyboardHandler
+  if (m_pKeyboard->TriggerDown(VK_BACK))  // restart game
+    BeginGame();                          // restart game
+
+}  // KeyboardHandler
 
 /// Draw the current frame rate to a hard-coded position in the window.
 /// The frame rate will be drawn in a hard-coded position using the font
@@ -151,70 +154,73 @@ void CGame::KeyboardHandler() {
 
 void CGame::DrawFrameRateText() {
   const std::string s =
-      std::to_string(m_pTimer->GetFPS()) + " fps"; // frame rate
-  const Vector2 pos(m_nWinWidth - 128.0f, 30.0f);  // hard-coded position
-  m_pRenderer->DrawScreenText(s.c_str(), pos);     // draw to screen
-} // DrawFrameRateText
+      std::to_string(m_pTimer->GetFPS()) + " fps";  // frame rate
+  const Vector2 pos(m_nWinWidth - 128.0f, 30.0f);   // hard-coded position
+  m_pRenderer->DrawScreenText(s.c_str(), pos);      // draw to screen
+}  // DrawFrameRateText
 
 /// Draw the game objects. The renderer is notified of the start and end of the
 /// frame so that it can let Direct3D do its pipelining jiggery-pokery.
 
 void CGame::RenderFrame() {
-  m_pRenderer->BeginFrame(); // required before rendering
+  m_pRenderer->BeginFrame();  // required before rendering
 
-  if (m_pTileManager)
-    m_pTileManager->Draw();
-  
+  if (m_pTileManager) m_pTileManager->Draw();
 
-  if (m_pPlayer)
-  m_pPlayer->Draw();
+  if (m_pPlayer) m_pPlayer->Draw();
 
-  // Draw inventory in screen space (not affected by camera)
-  if (m_pInventory && m_pInventory->IsOpen()) {
+  // Draw UI elements in screen space (not affected by camera)
+  {
     // Save current camera position
     Vector3 savedCameraPos = m_pRenderer->GetCameraPos();
 
-    // Reset camera to origin for UI rendering
-    m_pRenderer->SetCameraPos(Vector3::Zero);
+    // Set camera to window center for UI rendering
+    // This makes screen coordinates work as expected: (0,0) to (width,height)
+    m_pRenderer->SetCameraPos(Vector3(m_nWinWidth / 2.0f, m_nWinHeight / 2.0f, 0.0f));
 
-    // Draw inventory
-    m_pInventory->Draw();
+    // Always draw hotbar at bottom of screen
+    if (m_pInventory) {
+      m_pInventory->DrawHotbarOnly();
+    }
+
+    // Draw full inventory when open
+    if (m_pInventory && m_pInventory->IsOpen()) {
+      m_pInventory->Draw();
+    }
 
     // Restore camera position
     m_pRenderer->SetCameraPos(savedCameraPos);
   }
 
- 
-  if (m_bDrawFrameRate)
-    DrawFrameRateText();
+  if (m_bDrawFrameRate) DrawFrameRateText();
 
-  m_pRenderer->EndFrame(); // required after rendering
-} // RenderFrame
+  m_pRenderer->EndFrame();  // required after rendering
+}  // RenderFrame
 
 void CGame::FollowCamera() {
   if (m_pPlayer == nullptr) return;  // safety
 
   Vector3 vCameraPos(m_pPlayer->GetPos());  // player position
 
-     /*if (m_vWorldSize.x > m_nWinWidth) {  // world wider than screen
-        vCameraPos.x = std::max(
-            vCameraPos.x, m_nWinWidth / 2.0f);  // stay away from the left edge
-        vCameraPos.x = std::min(
-            vCameraPos.x,
-            m_vWorldSize.x - m_nWinWidth / 2.0f);  // stay away from the right edge
-      }  // if
-      else
-        vCameraPos.x = m_vWorldSize.x / 2.0f;  // center horizontally.
+  /*if (m_vWorldSize.x > m_nWinWidth) {  // world wider than screen
+     vCameraPos.x = std::max(
+         vCameraPos.x, m_nWinWidth / 2.0f);  // stay away from the left edge
+     vCameraPos.x = std::min(
+         vCameraPos.x,
+         m_vWorldSize.x - m_nWinWidth / 2.0f);  // stay away from the right edge
+   }  // if
+   else
+     vCameraPos.x = m_vWorldSize.x / 2.0f;  // center horizontally.
 
-      if (m_vWorldSize.y > m_nWinHeight) {  // world higher than screen
-        vCameraPos.y = std::max(
-            vCameraPos.y, m_nWinHeight / 2.0f);  // stay away from the bottom edge
-        vCameraPos.y = std::min(
-            vCameraPos.y,
-            m_vWorldSize.y - m_nWinHeight / 2.0f);  // stay away from the top edge
-      }  // if
-      else
-        vCameraPos.y = m_vWorldSize.y / 2.0f; */  // center vertically
+   if (m_vWorldSize.y > m_nWinHeight) {  // world higher than screen
+     vCameraPos.y = std::max(
+         vCameraPos.y, m_nWinHeight / 2.0f);  // stay away from the bottom edge
+     vCameraPos.y = std::min(
+         vCameraPos.y,
+         m_vWorldSize.y - m_nWinHeight / 2.0f);  // stay away from the top edge
+   }  // if
+   else
+     vCameraPos.y = m_vWorldSize.y / 2.0f; */  // center vertically
 
   m_pRenderer->SetCameraPos(vCameraPos);  // camera to player
 }  // FollowCamera
@@ -225,19 +231,19 @@ void CGame::FollowCamera() {
 /// Move the game objects. Render a frame of animation.
 
 void CGame::ProcessFrame() {
-  KeyboardHandler();      // handle keyboard input
-  m_pAudio->BeginFrame(); // notify audio player that frame has begun
+  KeyboardHandler();       // handle keyboard input
+  m_pAudio->BeginFrame();  // notify audio player that frame has begun
 
   float dt = m_pTimer->GetFrameTime();
-  
-  if (!m_pInventory->IsOpen())
-      m_pPlayer->Update(dt, m_pKeyboard, m_pTileManager);
 
-  m_pTimer->Tick([&]() { // all time-dependent function calls should go here
-    const float t = m_pTimer->GetFrameTime(); // frame interval in seconds
+  if (!m_pInventory->IsOpen())
+    m_pPlayer->Update(dt, m_pKeyboard, m_pTileManager);
+
+  m_pTimer->Tick([&]() {  // all time-dependent function calls should go here
+    const float t = m_pTimer->GetFrameTime();  // frame interval in seconds
     FollowCamera();
     // m_pSpriteDesc->m_fRoll += 0.125f*XM_2PI*t; //rotate at 1/8 RPS
   });
 
-  RenderFrame(); // render a frame of animation
-} // ProcessFrame
+  RenderFrame();  // render a frame of animation
+}  // ProcessFrame
