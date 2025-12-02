@@ -1,9 +1,11 @@
 #include "InventoryManager.h"
 
 #include <algorithm>
+#include <cmath>
 #include <cstring>
 #include <sstream>
 
+#include "Player.h"
 #include "SpriteDesc.h"
 
 /// Constructor initializes the inventory with empty slots.
@@ -22,6 +24,11 @@ CInventoryManager::~CInventoryManager() {
     delete item;
   }
   m_vItems.clear();
+
+  for (SDroppedItem& drop : m_vDroppedItems) {
+    delete drop.pItem;
+  }
+  m_vDroppedItems.clear();
 }
 
 /// Set screen dimensions and recalculate layout.
@@ -32,6 +39,48 @@ void CInventoryManager::SetScreenSize(float width, float height) {
   m_fScreenWidth = width;
   m_fScreenHeight = height;
   UpdateLayout();
+}
+
+void CInventoryManager::SetPlayer(CPlayer* player) { m_pPlayer = player; }
+
+void CInventoryManager::Update(float dt) {
+  if (m_vDroppedItems.empty()) return;
+
+  Vector2 playerPos = Vector2::Zero;
+  float playerRadius = 0.0f;
+  bool hasPlayer = (m_pPlayer != nullptr);
+  if (hasPlayer) {
+    playerPos = m_pPlayer->GetPos();
+    playerRadius = m_pPlayer->GetRadius();
+  }
+
+  for (size_t i = 0; i < m_vDroppedItems.size();) {
+    SDroppedItem& drop = m_vDroppedItems[i];
+    if (!drop.pItem) {
+      m_vDroppedItems.erase(m_vDroppedItems.begin() + i);
+      continue;
+    }
+
+    drop.fTimer += dt;
+    if (drop.fPickupDelay > 0.0f) {
+      drop.fPickupDelay = std::max(0.0f, drop.fPickupDelay - dt);
+    }
+
+    bool removed = false;
+    if (hasPlayer && drop.fPickupDelay <= 0.0f) {
+      float combinedRadius = playerRadius + m_fPickupRadius;
+      Vector2 diff = drop.vPos - playerPos;
+      if (diff.LengthSquared() <= combinedRadius * combinedRadius) {
+        if (AddItem(drop.pItem)) {
+          drop.pItem = nullptr;
+          m_vDroppedItems.erase(m_vDroppedItems.begin() + i);
+          removed = true;
+        }
+      }
+    }
+
+    if (!removed) ++i;
+  }
 }
 
 /// Update all layout positions based on current screen size.
@@ -275,8 +324,26 @@ void CInventoryManager::UseSelectedItem() {
 void CInventoryManager::DropSelectedItem() {
   if (m_nSelectedSlot < 0 || !m_vItems[m_nSelectedSlot]) return;
 
-  // TODO: Create item entity in game world at player position
-  RemoveItem(m_nSelectedSlot);
+  CItem* item = m_vItems[m_nSelectedSlot];
+
+  Vector2 dropPos = Vector2::Zero;
+  if (m_pPlayer) {
+    Vector2 playerPos = m_pPlayer->GetPos();
+    dropPos = playerPos + Vector2(m_pPlayer->GetRadius() + m_fSlotSize * 0.5f,
+                                  -m_pPlayer->GetRadius() * 0.25f);
+  }
+
+  SDroppedItem drop;
+  drop.pItem = item;
+  drop.vPos = dropPos;
+  drop.fTimer = 0.0f;
+  drop.fPickupDelay = m_fPickupDelayTime;
+  m_vDroppedItems.push_back(drop);
+  m_vItems[m_nSelectedSlot] = nullptr;
+
+  if (m_nSelectedSlot < m_nHotbarSlots) {
+    m_nHotbarSelection = m_nSelectedSlot;
+  }
 }
 
 /// Get item in currently selected hotbar slot.
@@ -464,6 +531,21 @@ void CInventoryManager::DrawHotbar() {
 /// Draw just the hotbar (always visible at bottom of screen).
 
 void CInventoryManager::DrawHotbarOnly() { DrawHotbar(); }
+
+void CInventoryManager::DrawWorldItems() {
+  LSpriteDesc2D desc;
+
+  for (const SDroppedItem& drop : m_vDroppedItems) {
+    if (!drop.pItem) continue;
+
+    desc.m_nSpriteIndex = (UINT)drop.pItem->GetSprite();
+    float bobOffset = std::sin(drop.fTimer * m_fBobSpeed) * m_fBobAmplitude;
+    desc.m_vPos = drop.vPos + Vector2(0.0f, bobOffset);
+    desc.m_fXScale = 1.0f;
+    desc.m_fYScale = 1.0f;
+    m_pRenderer->Draw(&desc);
+  }
+}
 
 /// Draw the entire inventory UI.
 

@@ -9,6 +9,8 @@
 
 using namespace DirectX::SimpleMath;
 
+class CPlayer;
+
 /// \brief The inventory manager class.
 /// Manages item storage, UI display, hotbar, and user interaction.
 class CInventoryManager {
@@ -37,6 +39,23 @@ class CInventoryManager {
   Vector2 m_vHotbarPos;     ///< Position of hotbar at bottom of screen
   Vector2 m_vPanelPos;      ///< Position of background panel
   Vector2 m_vPanelSize;     ///< Size of background panel
+
+  struct SDroppedItem {
+    CItem* pItem = nullptr;
+    Vector2 vPos = Vector2::Zero;
+    float fTimer = 0.0f;
+    float fPickupDelay = 0.0f;
+  };
+
+  std::vector<SDroppedItem>
+      m_vDroppedItems;  ///< World items spawned from drops
+
+  CPlayer* m_pPlayer = nullptr;  ///< Player pointer for world drop placement
+
+  static constexpr float m_fPickupRadius = 32.0f;
+  static constexpr float m_fPickupDelayTime = 0.25f;
+  static constexpr float m_fBobAmplitude = 6.0f;
+  static constexpr float m_fBobSpeed = 2.5f;
 
   /// \brief Update layout positions based on screen size.
   void UpdateLayout();
@@ -82,6 +101,12 @@ class CInventoryManager {
   /// \param height Screen height
   void SetScreenSize(float width, float height);
 
+  /// \brief Provide player reference for drop placement.
+  void SetPlayer(CPlayer* player);
+
+  /// \brief Update world drop state (bobbing, pickup detection).
+  void Update(float dt);
+
   /// \brief Add an item to the inventory.
   /// \param item Pointer to item to add
   /// \return True if successfully added
@@ -125,6 +150,9 @@ class CInventoryManager {
 
   /// \brief Draw just the hotbar (always visible).
   void DrawHotbarOnly();
+
+  /// \brief Draw items dropped into the world.
+  void DrawWorldItems();
 
   /// \brief Check if inventory has room for an item.
   /// \param item Item to check

@@ -35,6 +35,7 @@ void CGame::Initialize() {
   // Initialize inventory with screen dimensions
   m_pInventory = new CInventoryManager(m_pRenderer);
   m_pInventory->SetScreenSize((float)m_nWinWidth, (float)m_nWinHeight);
+  m_pInventory->SetPlayer(m_pPlayer);
 
   LoadSounds();  // load the sounds for this game
 
@@ -169,6 +170,10 @@ void CGame::RenderFrame() {
 
   if (m_pPlayer) m_pPlayer->Draw();
 
+  if (m_pInventory) {
+    m_pInventory->DrawWorldItems();
+  }
+
   // Draw UI elements in screen space (not affected by camera)
   {
     // Save current camera position
@@ -176,7 +181,8 @@ void CGame::RenderFrame() {
 
     // Set camera to window center for UI rendering
     // This makes screen coordinates work as expected: (0,0) to (width,height)
-    m_pRenderer->SetCameraPos(Vector3(m_nWinWidth / 2.0f, m_nWinHeight / 2.0f, 0.0f));
+    m_pRenderer->SetCameraPos(
+        Vector3(m_nWinWidth / 2.0f, m_nWinHeight / 2.0f, 0.0f));
 
     // Always draw hotbar at bottom of screen
     if (m_pInventory) {
@@ -235,6 +241,10 @@ void CGame::ProcessFrame() {
   m_pAudio->BeginFrame();  // notify audio player that frame has begun
 
   float dt = m_pTimer->GetFrameTime();
+
+  if (m_pInventory) {
+    m_pInventory->Update(dt);
+  }
 
   if (!m_pInventory->IsOpen())
     m_pPlayer->Update(dt, m_pKeyboard, m_pTileManager);
