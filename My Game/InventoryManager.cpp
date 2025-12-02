@@ -1,6 +1,7 @@
 #include "InventoryManager.h"
 
 #include <algorithm>
+#include <cstring>
 #include <sstream>
 
 #include "SpriteDesc.h"
@@ -382,12 +383,13 @@ void CInventoryManager::DrawItemInfo() {
   CItem* item = m_vItems[m_nSelectedSlot];
 
   // Info area lives in the reserved 80px section added in UpdateLayout().
-  constexpr float infoAreaHeight = 80.0f;
+  constexpr float infoAreaHeight = 95.0f;
   constexpr float infoPadding = 10.0f;
   constexpr float lineHeight = 18.0f;
 
-  float infoTopSpriteY = m_vPanelPos.y + infoAreaHeight - infoPadding;
-  float infoBottomSpriteY = m_vPanelPos.y + infoPadding;
+  float infoBottomSpriteY = m_vPanelPos.y + m_fPanelPadding + infoPadding;
+  float infoTopSpriteY =
+      infoBottomSpriteY + infoAreaHeight - infoPadding * 2.0f;
   float usableHeight = infoTopSpriteY - infoBottomSpriteY;
   if (usableHeight <= 0.0f) return;
 
@@ -477,9 +479,15 @@ void CInventoryManager::Draw() {
       SpriteYToTextY(m_vPanelPos.y + m_vPanelSize.y - m_fPanelPadding - 5.0f);
   m_pRenderer->DrawScreenText("INVENTORY", Vector2(titleX, titleY));
 
-  // Draw controls hint at top right
-  float controlsX = m_vPanelPos.x + m_vPanelSize.x - 100.0f;
-  m_pRenderer->DrawScreenText("[I] Close", Vector2(controlsX, titleY));
+  // Draw controls hint at top right, keep inside panel bounds
+  const char* controlsText = "[I] Close";
+  float approxCharWidth = 15.0f;
+  float controlsWidth =
+      static_cast<float>(std::strlen(controlsText)) * approxCharWidth;
+  float controlsX =
+      m_vPanelPos.x + m_vPanelSize.x - m_fPanelPadding - controlsWidth;
+  controlsX = std::max(controlsX, m_vPanelPos.x + m_fPanelPadding);
+  m_pRenderer->DrawScreenText(controlsText, Vector2(controlsX, titleY));
 
   // Draw all inventory slots
   for (int i = 0; i < m_nMaxSlots; i++) {

@@ -5,7 +5,7 @@
   <game name="Blank 2D Game" />
   <renderer width="1024" height="768"/>
    
-  <font file="Media\Fonts\AverageSans_24.spritefont"/>
+  <font file="Media\Fonts\Minecraftia_18.spritefont"/>
 
   <!-- sprites -->
    
