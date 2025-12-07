@@ -10,7 +10,7 @@ class CTileManager;  // forward reference
 
 class CPlayer {
  private:
-  Vector2 m_vPos = {512.0f, 700.0f};
+  Vector2 m_vPos = {512.0f, 10.0f};
   Vector2 m_vVel = {0.0f, 0.0f};
   float m_fSpeed = 200.0f;
   float m_fRadius = 16.0f;

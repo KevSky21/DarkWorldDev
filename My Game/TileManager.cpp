@@ -59,29 +59,39 @@ void CTileManager::LoadMap(const char *filename) {
 }
 
 void CTileManager::Draw() {
-  if (!m_chMap)
-    return;
+  if (!m_chMap) return;
 
   LSpriteDesc2D desc;
+  float yOffset = -200.0f;  // or your desired offset
 
   for (size_t i = 0; i < m_nHeight; i++) {
     for (size_t j = 0; j < m_nWidth; j++) {
-      desc.m_nSpriteIndex =
-          static_cast<UINT>(eSprite::Dirt); // just one sprite for now
+      desc.m_nSpriteIndex = (UINT)eSprite::Dirt;
+
       desc.m_vPos.x = (j + 0.5f) * m_fTileSize;
-      desc.m_vPos.y = (m_nHeight - 1 - i + 0.5f) * m_fTileSize;
+
+      // match LoadMap() Y calculation
+      desc.m_vPos.y = (m_nHeight - 1 - i + 0.5f) * m_fTileSize + yOffset;
+
       m_pRenderer->Draw(&desc);
     }
   }
 }
 
+
 // Check for collision with solid tiles
 bool CTileManager::CheckCollision(const Vector2 &pos, float radius) {
+  const float yOffset = -200.0f;
+
+  float half = m_fTileSize * 0.5f;
+
   for (auto &tilePos : m_solidTiles) {
-    float half = m_fTileSize / 2.0f;
-    if (fabs(pos.x - tilePos.x) < (radius + half) &&
-        fabs(pos.y - tilePos.y) < (radius + half)) {
-      return true; // touching a solid tile
+    float tileX = tilePos.x;
+    float tileY = tilePos.y + yOffset;
+
+    if (fabs(pos.x - tileX) < (radius + half) &&
+        fabs(pos.y - tileY) < (radius + half)) {
+      return true;
     }
   }
   return false;

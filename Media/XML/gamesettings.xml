@@ -10,6 +10,8 @@
   <!-- sprites -->
    
   <sprites path="Media\Images">
+    <sprite name="sky" file="Background_1.png"/>
+    <sprite name="chapel" file="Background_0.png"/>
     <sprite name="background" file="background.png"/>
     <sprite name="textwheel" file="textwheel.png"/>
     <sprite name="pig" file="pig.png"/>

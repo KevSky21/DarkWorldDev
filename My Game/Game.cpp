@@ -45,6 +45,8 @@ void CGame::LoadImages() {
 
   m_pRenderer->Load(eSprite::Background, "background");
   // m_pRenderer->Load(eSprite::TextWheel,  "textwheel");
+  m_pRenderer->Load(eSprite::Chapel, "chapel");
+  m_pRenderer->Load(eSprite::Sky, "sky");
   m_pRenderer->Load(eSprite::Pig, "pig");
   m_pRenderer->Load(eSprite::Dirt, "dirt");
   m_pRenderer->Load(eSprite::Step, "step");  
@@ -118,6 +120,56 @@ void CGame::DrawFrameRateText() {
 void CGame::RenderFrame() {
   m_pRenderer->BeginFrame(); // required before rendering
 
+// =========================
+  //   BACKGROUND DRAWING
+  // =========================
+  {
+    const Vector2 cam = m_pRenderer->GetCameraPos();
+    const float winW = (float)m_nWinWidth;
+    const float winH = (float)m_nWinHeight;
+
+    // Real PNG dimensions:
+    const float bgW = 1024.0f;
+    const float bgH = 576.0f;
+
+    // Scale the background to fill the vertical window (768 tall)
+    const float scale = 1.39f;  // ? 1.333  winH / bgH
+
+    const float drawW = bgW * scale;  // scaled width
+
+    float bgYOffset = 100.0f;  // shift downward
+
+
+    // Start drawing slightly offscreen for no gaps
+    float startX = cam.x - winW / 2.0f - drawW;
+
+    
+    // ---- Draw CHAPEL next (mid layer) ----
+    for (float x = startX; x < cam.x + winW / 2.0f + drawW; x += drawW) {
+      LSpriteDesc2D d;
+      d.m_nSpriteIndex = (UINT)eSprite::Chapel;
+      d.m_vPos = Vector2(x + (drawW / 2.0f) + -210.0f, cam.y + bgYOffset); // vertical center
+      d.m_fXScale = scale;
+      d.m_fYScale = scale + 1.0f;
+      m_pRenderer->Draw(&d);
+    }
+
+    // ---- Draw SKY first (furthest) ----
+    for (float x = startX; x < cam.x + winW / 2.0f + drawW; x += drawW) {
+      LSpriteDesc2D d;
+      d.m_nSpriteIndex = (UINT)eSprite::Sky;
+      d.m_vPos = Vector2(x + (drawW / 2.0f) + -210.0f, cam.y + bgYOffset); // vertical center
+      d.m_fXScale = scale;
+      d.m_fYScale = scale + 1.0f;
+      m_pRenderer->Draw(&d);
+    }
+
+  }
+
+
+
+
+
   if (m_pTileManager)
     m_pTileManager->Draw();
   else
@@ -139,28 +191,13 @@ void CGame::FollowCamera() {
 
   Vector3 vCameraPos(m_pPlayer->GetPos());  // player position
 
-     /*if (m_vWorldSize.x > m_nWinWidth) {  // world wider than screen
-        vCameraPos.x = std::max(
-            vCameraPos.x, m_nWinWidth / 2.0f);  // stay away from the left edge
-        vCameraPos.x = std::min(
-            vCameraPos.x,
-            m_vWorldSize.x - m_nWinWidth / 2.0f);  // stay away from the right edge
-      }  // if
-      else
-        vCameraPos.x = m_vWorldSize.x / 2.0f;  // center horizontally.
-
-      if (m_vWorldSize.y > m_nWinHeight) {  // world higher than screen
-        vCameraPos.y = std::max(
-            vCameraPos.y, m_nWinHeight / 2.0f);  // stay away from the bottom edge
-        vCameraPos.y = std::min(
-            vCameraPos.y,
-            m_vWorldSize.y - m_nWinHeight / 2.0f);  // stay away from the top edge
-      }  // if
-      else
-        vCameraPos.y = m_vWorldSize.y / 2.0f; */  // center vertically
+      // --- Offset camera upward so ground appears at bottom ---
+  const float verticalOffset = 200.0f;  // tweak to taste
+  vCameraPos.y += verticalOffset;
 
   m_pRenderer->SetCameraPos(vCameraPos);  // camera to player
-}  // FollowCamera
+}  
+// FollowCamera
 /// This function will be called regularly to process and render a frame
 /// of animation, which involves the following. Handle keyboard input.
 /// Notify the  audio player at the start of each frame so that it can prevent

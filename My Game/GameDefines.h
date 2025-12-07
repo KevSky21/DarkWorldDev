@@ -14,6 +14,8 @@
 /// memory. `Size` must be last.
 
 enum class eSprite : UINT {
+  Sky,
+  Chapel,
   Background,
   TextWheel,
   Pig,
