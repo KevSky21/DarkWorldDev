@@ -3,39 +3,35 @@
 
 #include "Game.h"
 
-#include "GameDefines.h"
-#include "SpriteRenderer.h"
+#include "Common.h"
 #include "ComponentIncludes.h"
-#include "TileManager.h"
+#include "GameDefines.h"
 #include "Player.h"
+#include "SpriteRenderer.h"
+#include "TileManager.h"
 #include "shellapi.h"
-
 
 /// Delete the sprite descriptor. The renderer needs to be deleted before this
 /// destructor runs so it will be done elsewhere.
 
-CGame::~CGame(){
-  delete m_pSpriteDesc;
-} //destructor
+CGame::~CGame() { delete m_pSpriteDesc; } // destructor
 
 /// Create the renderer and the sprite descriptor load images and sounds, and
 /// begin the game.
 
-void CGame::Initialize(){
-  m_pRenderer = new LSpriteRenderer(eSpriteMode::Batched2D); 
+void CGame::Initialize() {
+  m_pRenderer = new LSpriteRenderer(eSpriteMode::Batched2D);
   m_pRenderer->Initialize(eSprite::Size);
-  LoadImages(); //load images from xml file list
+  LoadImages(); // load images from xml file list
 
   m_pTileManager = new CTileManager(m_pRenderer);
   m_pTileManager->LoadMap("Media/Maps/testmap.txt");
   m_pPlayer = new CPlayer(m_pRenderer);
 
-
- 
-  LoadSounds(); //load the sounds for this game
+  LoadSounds(); // load the sounds for this game
 
   BeginGame();
-} //Initialize
+} // Initialize
 
 /// Load the specific images needed for this game. This is where `eSprite`
 /// values from `GameDefines.h` get tied to the names of sprite tags in
@@ -44,122 +40,182 @@ void CGame::Initialize(){
 /// should abort from deeper in the Engine code leaving you with an error
 /// message in a dialog box.
 
-void CGame::LoadImages(){  
+void CGame::LoadImages() {
   m_pRenderer->BeginResourceUpload();
 
-  m_pRenderer->Load(eSprite::Background, "background"); 
- // m_pRenderer->Load(eSprite::TextWheel,  "textwheel");
+  m_pRenderer->Load(eSprite::Background, "background");
+  // m_pRenderer->Load(eSprite::TextWheel,  "textwheel");
+  m_pRenderer->Load(eSprite::Chapel, "chapel");
+  m_pRenderer->Load(eSprite::Sky, "sky");
   m_pRenderer->Load(eSprite::Pig, "pig");
   m_pRenderer->Load(eSprite::Dirt, "dirt");
+  m_pRenderer->Load(eSprite::Step, "step");  
+  m_pRenderer->Load(eSprite::Jab, "jab");    
 
   m_pRenderer->EndResourceUpload();
-} //LoadImages
+} // LoadImages
 
 /// Initialize the audio player and load game sounds.
 
-void CGame::LoadSounds(){
+void CGame::LoadSounds() {
   m_pAudio->Initialize(eSound::Size);
-//  m_pAudio->Load(eSound::Grunt, "grunt");
- // m_pAudio->Load(eSound::Clang, "clang");
- // m_pAudio->Load(eSound::Oink, "oink");
-} //LoadSounds
+  //  m_pAudio->Load(eSound::Grunt, "grunt");
+  // m_pAudio->Load(eSound::Clang, "clang");
+  // m_pAudio->Load(eSound::Oink, "oink");
+} // LoadSounds
 
 /// Release all of the DirectX12 objects by deleting the renderer.
 
-void CGame::Release(){
+void CGame::Release() {
   delete m_pRenderer;
   delete m_pPlayer;
-  m_pRenderer = nullptr; //for safety
-} //Release
+  m_pRenderer = nullptr; // for safety
+} // Release
 
 /// Call this function to start a new game. This should be re-entrant so that
 /// you can restart a new game without having to shut down and restart the
 /// program.
 
-void CGame::BeginGame(){  
+void CGame::BeginGame() {
   delete m_pSpriteDesc;
-  m_pSpriteDesc = new LSpriteDesc2D((UINT)eSprite::TextWheel, m_vWinCenter); 
+  m_pSpriteDesc = new LSpriteDesc2D((UINT)eSprite::TextWheel, m_vWinCenter);
   m_pSpriteDesc = new LSpriteDesc2D((UINT)eSprite::Pig, m_vWinCenter / 4);
-} //BeginGame
+} // BeginGame
 
 /// Poll the keyboard state and respond to the key presses that happened since
 /// the last frame.
 
-void CGame::KeyboardHandler(){
-  m_pKeyboard->GetState(); //get current keyboard state 
-  
-  if(m_pKeyboard->TriggerDown(VK_F1)) //help
-    ShellExecute(0, 0, "https://larc.unt.edu/code/physics/blank/", 0, 0, SW_SHOW);
-  //if (m_pKeyboard->TriggerDown('O'))
-    //  m_pAudio->play(eSound::Oink);
-  
-  if(m_pKeyboard->TriggerDown(VK_F2)) //toggle frame rate 
+void CGame::KeyboardHandler() {
+  m_pKeyboard->GetState(); // get current keyboard state
+
+  if (m_pKeyboard->TriggerDown(VK_F1)) // help
+    ShellExecute(0, 0, "https://larc.unt.edu/code/physics/blank/", 0, 0,
+                 SW_SHOW);
+
+  if (m_pKeyboard->TriggerDown(VK_F2)) // toggle frame rate
     m_bDrawFrameRate = !m_bDrawFrameRate;
-  
-  //if(m_pKeyboard->TriggerDown(VK_SPACE)) //play sound
-    //m_pAudio->play(eSound::Clang);
-
- // if(m_pKeyboard->TriggerUp(VK_SPACE)) //play sound
-   // m_pAudio->play(eSound::Grunt);
-  
-  if(m_pKeyboard->TriggerDown(VK_BACK)) //restart game
 
 
-    BeginGame(); //restart game
 
+  if (m_pKeyboard->TriggerDown(VK_BACK)) // restart game
 
-} //KeyboardHandler
+    BeginGame(); // restart game
+
+} // KeyboardHandler
 
 /// Draw the current frame rate to a hard-coded position in the window.
 /// The frame rate will be drawn in a hard-coded position using the font
 /// specified in gamesettings.xml.
 
-void CGame::DrawFrameRateText(){
-  const std::string s = std::to_string(m_pTimer->GetFPS()) + " fps"; //frame rate
-  const Vector2 pos(m_nWinWidth - 128.0f, 30.0f); //hard-coded position
-  m_pRenderer->DrawScreenText(s.c_str(), pos); //draw to screen
-} //DrawFrameRateText
+void CGame::DrawFrameRateText() {
+  const std::string s =
+      std::to_string(m_pTimer->GetFPS()) + " fps"; // frame rate
+  const Vector2 pos(m_nWinWidth - 128.0f, 30.0f);  // hard-coded position
+  m_pRenderer->DrawScreenText(s.c_str(), pos);     // draw to screen
+} // DrawFrameRateText
 
 /// Draw the game objects. The renderer is notified of the start and end of the
 /// frame so that it can let Direct3D do its pipelining jiggery-pokery.
 
-void CGame::RenderFrame(){
-  m_pRenderer->BeginFrame(); //required before rendering
-  
+void CGame::RenderFrame() {
+  m_pRenderer->BeginFrame(); // required before rendering
+
+// =========================
+  //   BACKGROUND DRAWING
+  // =========================
+  {
+    const Vector2 cam = m_pRenderer->GetCameraPos();
+    const float winW = (float)m_nWinWidth;
+    const float winH = (float)m_nWinHeight;
+
+    // Real PNG dimensions:
+    const float bgW = 1024.0f;
+    const float bgH = 576.0f;
+
+    // Scale the background to fill the vertical window (768 tall)
+    const float scale = 1.39f;  // ? 1.333  winH / bgH
+
+    const float drawW = bgW * scale;  // scaled width
+
+    float bgYOffset = 100.0f;  // shift downward
+
+
+    // Start drawing slightly offscreen for no gaps
+    float startX = cam.x - winW / 2.0f - drawW;
+
+    
+    // ---- Draw CHAPEL next (mid layer) ----
+    for (float x = startX; x < cam.x + winW / 2.0f + drawW; x += drawW) {
+      LSpriteDesc2D d;
+      d.m_nSpriteIndex = (UINT)eSprite::Chapel;
+      d.m_vPos = Vector2(x + (drawW / 2.0f) + -210.0f, cam.y + bgYOffset); // vertical center
+      d.m_fXScale = scale;
+      d.m_fYScale = scale + 1.0f;
+      m_pRenderer->Draw(&d);
+    }
+
+    // ---- Draw SKY first (furthest) ----
+    for (float x = startX; x < cam.x + winW / 2.0f + drawW; x += drawW) {
+      LSpriteDesc2D d;
+      d.m_nSpriteIndex = (UINT)eSprite::Sky;
+      d.m_vPos = Vector2(x + (drawW / 2.0f) + -210.0f, cam.y + bgYOffset); // vertical center
+      d.m_fXScale = scale;
+      d.m_fYScale = scale + 1.0f;
+      m_pRenderer->Draw(&d);
+    }
+
+  }
+
+
+
+
+
   if (m_pTileManager)
-  m_pTileManager->Draw();
+    m_pTileManager->Draw();
   else
-      OutputDebugStringA("m_pTileManager is null\n");
+    OutputDebugStringA("m_pTileManager is null\n");
 
   if (m_pPlayer)
-  m_pPlayer->Draw();
+    m_pPlayer->Draw();
   else
-	  OutputDebugStringA("m_pPlayer is null\n");
+    OutputDebugStringA("m_pPlayer is null\n");
 
   if (m_bDrawFrameRate)
-      DrawFrameRateText();
+    DrawFrameRateText();
 
-  m_pRenderer->EndFrame(); //required after rendering
-} //RenderFrame
+  m_pRenderer->EndFrame(); // required after rendering
+} // RenderFrame
 
+void CGame::FollowCamera() {
+  if (m_pPlayer == nullptr) return;  // safety
+
+  Vector3 vCameraPos(m_pPlayer->GetPos());  // player position
+
+      // --- Offset camera upward so ground appears at bottom ---
+  const float verticalOffset = 200.0f;  // tweak to taste
+  vCameraPos.y += verticalOffset;
+
+  m_pRenderer->SetCameraPos(vCameraPos);  // camera to player
+}  
+// FollowCamera
 /// This function will be called regularly to process and render a frame
 /// of animation, which involves the following. Handle keyboard input.
 /// Notify the  audio player at the start of each frame so that it can prevent
-/// multiple copies of a sound from starting on the same frame.  
+/// multiple copies of a sound from starting on the same frame.
 /// Move the game objects. Render a frame of animation.
 
-void CGame::ProcessFrame(){
-  KeyboardHandler(); //handle keyboard input
-  m_pAudio->BeginFrame(); //notify audio player that frame has begun
-  
+void CGame::ProcessFrame() {
+  KeyboardHandler();      // handle keyboard input
+  m_pAudio->BeginFrame(); // notify audio player that frame has begun
+
   float dt = m_pTimer->GetFrameTime();
   m_pPlayer->Update(dt, m_pKeyboard, m_pTileManager);
 
-
-  m_pTimer->Tick([&](){ //all time-dependent function calls should go here
-    const float t = m_pTimer->GetFrameTime(); //frame interval in seconds
-   // m_pSpriteDesc->m_fRoll += 0.125f*XM_2PI*t; //rotate at 1/8 RPS
+  m_pTimer->Tick([&]() { // all time-dependent function calls should go here
+    const float t = m_pTimer->GetFrameTime(); // frame interval in seconds
+    FollowCamera();
+    // m_pSpriteDesc->m_fRoll += 0.125f*XM_2PI*t; //rotate at 1/8 RPS
   });
 
-  RenderFrame(); //render a frame of animation
-} //ProcessFrame
+  RenderFrame(); // render a frame of animation
+} // ProcessFrame
