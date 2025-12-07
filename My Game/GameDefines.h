@@ -14,8 +14,15 @@
 /// memory. `Size` must be last.
 
 enum class eSprite: UINT{
-  Background, TextWheel, Pig, Dirt,
-  Size  //MUST BE LAST
+  Sky,
+  Chapel,
+  Background,
+  TextWheel,
+  Pig,
+  Dirt,
+  Step,
+  Jab,
+  Size  // MUST BE LAST
 }; //eSprite
 
 /// \brief Sound enumerated type.
