@@ -5,7 +5,7 @@
   <game name="Blank 2D Game" />
   <renderer width="1024" height="768"/>
    
-  <font file="Media\Fonts\AverageSans_24.spritefont"/>
+  <font file="Media\Fonts\Minecraftia_18.spritefont"/>
 
   <!-- sprites -->
    
@@ -16,6 +16,21 @@
     <sprite name="textwheel" file="textwheel.png"/>
     <sprite name="pig" file="pig.png"/>
     <sprite name="dirt" file="Dirt.png"/>
+
+	
+
+    <!-- Inventory UI -->
+    <sprite name="inventory_slot" file="inventory_slot.png"/>
+    <sprite name="inventory_panel" file="inventory_panel.png"/>
+    <sprite name="inventory_slot_selected" file="inventory_slot_selected.png"/>
+    
+    <!-- Items -->
+    <sprite name="item_potion" file="item_potion.png"/>
+    <sprite name="item_key" file="item_key.png"/>
+    <sprite name="item_coin" file="item_coin.png"/>
+    <sprite name="item_sword" file="item_sword.png"/>
+    <sprite name="item_apple" file="item_apple.png"/>
+    <sprite name="item_shield" file="item_shield.png"/>
     <sprite name="step" file="sprite-step.png"/>
     <sprite name="jab" file="sprite-jab.png"/>
   </sprites>

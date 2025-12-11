@@ -13,17 +13,27 @@
 /// integer and used for the index of the corresponding texture in graphics
 /// memory. `Size` must be last.
 
-enum class eSprite : UINT {
-  Sky,
-  Chapel,
-  Background,
-  TextWheel,
-  Pig,
-  Dirt,
+enum class eSprite: UINT{
+  Background, TextWheel, Pig, Dirt, Sky, Chapel, TextWheel
+
+  // add inventory sprites
+  InventorySlot, // empty slot
+  InventorySlotSelected, // hovered inventory slot
+  InventoryPanel, // inventory background panel
+
+  // test item sprites
+  ItemPotion,	// health pot
+  ItemKey,		// key
+  ItemCoin,		// coin
+  ItemSword,	//sword
+  ItemShield,	//shield
+  ItemApple,	//apple
   Step,
   Jab,
-  Size  // MUST BE LAST
-};  // eSprite
+  
+  Size  //MUST BE LAST
+}; //eSprite
+
 
 /// \brief Sound enumerated type.
 ///

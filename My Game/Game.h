@@ -9,6 +9,8 @@
 #include "SpriteDesc.h"
 #include "SpriteRenderer.h"
 #include "TileManager.h"
+#include "InventoryManager.h"
+
 
 /// \brief The game class.
 ///
@@ -30,15 +32,19 @@ private:
   CTileManager *m_pTileManager = nullptr;
   CPlayer *m_pPlayer = nullptr;
 
-  void LoadImages();        ///< Load images.
-  void LoadSounds();        ///< Load sounds.
-  void BeginGame();         ///< Begin playing the game.
-  void CreateObjects() {}   ///< Create game objects.
-  void KeyboardHandler();   ///< The keyboard handler.
-  void RenderFrame();       ///< Render an animation frame.
-  void DrawFrameRateText(); ///< Draw frame rate text to screen.
+
   void FollowCamera();       ///< Make camera follow player character.
 
+
+	CInventoryManager* m_pInventory = nullptr; ///< Pointer to inventory manager.
+
+    void LoadImages(); ///< Load images.
+    void LoadSounds(); ///< Load sounds.
+    void BeginGame(); ///< Begin playing the game.
+    void CreateObjects(){}///< Create game objects.
+    void KeyboardHandler(); ///< The keyboard handler.
+    void RenderFrame(); ///< Render an animation frame.
+    void DrawFrameRateText(); ///< Draw frame rate text to screen.
  public:
   ~CGame(); ///< Destructor.
 

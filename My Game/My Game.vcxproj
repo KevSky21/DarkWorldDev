@@ -164,6 +164,8 @@
   <ItemGroup>
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InventoryManager.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="TileManager.cpp" />
@@ -172,6 +174,8 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDefines.h" />
+    <ClInclude Include="InventoryManager.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TileManager.h" />
   </ItemGroup>
