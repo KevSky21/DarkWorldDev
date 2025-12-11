@@ -14,7 +14,7 @@
 /// memory. `Size` must be last.
 
 enum class eSprite: UINT{
-  Background, TextWheel, Pig, Dirt, Sky, Chapel, TextWheel
+  Background, TextWheel, Pig, Dirt, Sky, Chapel, 
 
   // add inventory sprites
   InventorySlot, // empty slot
