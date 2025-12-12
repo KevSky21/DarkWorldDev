@@ -30,6 +30,10 @@ enum class eSprite: UINT{
   ItemApple,	//apple
   Step,
   Jab,
+  DebugRed,
+  DebugSquare,
+  DebugGreen,
+  Bullet,
   
   Size  //MUST BE LAST
 }; //eSprite

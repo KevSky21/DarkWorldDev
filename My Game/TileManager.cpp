@@ -1,8 +1,6 @@
 #include "TileManager.h"
-
 #include "Sprite.h"
 #include "SpriteRenderer.h"
-
 #include <fstream>
 #include <iostream>
 
@@ -43,17 +41,47 @@ void CTileManager::LoadMap(const char *filename) {
     }
   }
 
-  m_solidTiles.clear();
-  // Identify solid tiles (represented by '#')
-  for (size_t i = 0; i < m_nHeight; i++) {
-    for (size_t j = 0; j < m_nWidth; j++) {
-      if (m_chMap[i][j] == '#') {
-        float x = (j + 0.5f) * m_fTileSize;
-        float y = (m_nHeight - 1 - i + 0.5f) * m_fTileSize;
-        m_solidTiles.push_back(Vector2(x, y));
+  m_solidRects.clear();
+  std::vector<std::vector<bool>> used(m_nHeight,std::vector<bool>(m_nWidth, false));
+
+  for (int y = 0; y < m_nHeight; ++y)
+    for (int x = 0; x < m_nWidth; ++x) {
+      if (m_chMap[y][x] != '1' || used[y][x]) continue;
+
+      int w = 0;
+      while (x + w < m_nWidth && m_chMap[y][x + w] == '1' && !used[y][x + w])
+        w++;
+
+      int h = 1;
+      bool done = false;
+      while (y + h < m_nHeight && !done) {
+        for (int i = 0; i < w; ++i)
+          if (m_chMap[y + h][x + i] != '1' || used[y + h][x + i]) {
+            done = true;
+            break;
+          }
+        if (!done) h++;
       }
+
+      for (int yy = y; yy < y + h; ++yy)
+        for (int xx = x; xx < x + w; ++xx) used[yy][xx] = true;
+
+      m_solidRects.push_back({x, y, w, h});
     }
-  }
+
+  //m_solidTiles.clear();
+  //// Identify solid tiles (represented by '#')
+  //for (size_t i = 0; i < m_nHeight; i++) {
+  //  for (size_t j = 0; j < m_nWidth; j++) {
+  //    if (m_chMap[i][j] == '1') {
+  //      float x = (j * 0.5f) * m_fTileSize;
+  //      float y = (m_nHeight - 1 - i * 0.5f) * m_fTileSize;
+  //      m_solidTiles.push_back(Vector2(x, y));
+  //    } else {
+  //      continue;
+  //    }
+  //  }
+  //}
   //m_vWorldSize = Vector2((float)m_nWidth, (float)m_nHeight) * m_fTileSize;
   std::cout << "Loaded map: " << m_nWidth << "x" << m_nHeight << std::endl;
 }
@@ -61,38 +89,17 @@ void CTileManager::LoadMap(const char *filename) {
 void CTileManager::Draw() {
   if (!m_chMap) return;
 
-  LSpriteDesc2D desc;
-  float yOffset = -200.0f;  // or your desired offset
+LSpriteDesc2D d;
+  d.m_nSpriteIndex = (UINT)eSprite::Dirt;
 
-  for (size_t i = 0; i < m_nHeight; i++) {
-    for (size_t j = 0; j < m_nWidth; j++) {
-      desc.m_nSpriteIndex = (UINT)eSprite::Dirt;
+  for (int y = 0; y < m_nHeight; ++y) {
+    for (int x = 0; x < m_nWidth; ++x) {
+      if (m_chMap[y][x] != '1') continue;
 
-      desc.m_vPos.x = (j + 0.5f) * m_fTileSize;
+      d.m_vPos.x = (x + 0.5f) * m_fTileSize;
+      d.m_vPos.y = (m_nHeight - y - 0.5f) * m_fTileSize;
 
-      // match LoadMap() Y calculation
-      desc.m_vPos.y = (m_nHeight - 1 - i + 0.5f) * m_fTileSize + yOffset;
-
-      m_pRenderer->Draw(&desc);
+      m_pRenderer->Draw(&d);
     }
   }
-}
-
-
-// Check for collision with solid tiles
-bool CTileManager::CheckCollision(const Vector2 &pos, float radius) {
-  const float yOffset = -200.0f;
-
-  float half = m_fTileSize * 0.5f;
-
-  for (auto &tilePos : m_solidTiles) {
-    float tileX = tilePos.x;
-    float tileY = tilePos.y + yOffset;
-
-    if (fabs(pos.x - tileX) < (radius + half) &&
-        fabs(pos.y - tileY) < (radius + half)) {
-      return true;
-    }
-  }
-  return false;
 }

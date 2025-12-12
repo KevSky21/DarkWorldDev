@@ -15,9 +15,12 @@
     <sprite name="background" file="background.png"/>
     <sprite name="textwheel" file="textwheel.png"/>
     <sprite name="pig" file="pig.png"/>
-    <sprite name="dirt" file="Dirt.png"/>
+    <sprite name="dirt" file="Dirt32.png"/>
+	<sprite name="debugBox" file="DebugBox.png"/>
+	<sprite name="debugSquareWOutline" file="DebugSquareWOutline.png"/>
+	<sprite name="contactSquare" file="ContactSquare.png"/>
+	<sprite name="bullet" file="Bullet.png"/>
 
-	
 
     <!-- Inventory UI -->
     <sprite name="inventory_slot" file="inventory_slot.png"/>

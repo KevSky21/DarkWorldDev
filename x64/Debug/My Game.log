@@ -1,4 +1,5 @@
-﻿  Game.cpp
-  Player.cpp
-  Generating Code...
-  My Game.vcxproj -> C:\Users\Kyle Schoby\Documents\GitHub\DarkWorldDev\x64\Debug\Game.exe
+﻿  Player.cpp
+C:\Users\Kyle. Schoby\Documents\GitHub\DarkWorldDev\My Game\TileManager.h(40,37): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'Player.cpp')
+  
+  My Game.vcxproj -> C:\Users\Kyle. Schoby\Documents\GitHub\DarkWorldDev\x64\Debug\Game.exe

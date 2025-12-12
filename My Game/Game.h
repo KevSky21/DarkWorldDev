@@ -10,6 +10,10 @@
 #include "SpriteRenderer.h"
 #include "TileManager.h"
 #include "InventoryManager.h"
+#include "Bullet.h"
+#include "box2d/box2d.h"
+
+
 
 
 /// \brief The game class.
@@ -22,6 +26,15 @@
 /// any destructors are run.
 class CPlayer;
 class CTileManager;
+class ContactListener;
+
+class ContactListener : public b2ContactListener {
+ private:
+  
+ public:
+  void BeginContact(b2Contact *contact) override;
+  void EndContact(b2Contact *contact) override;
+};
 
 class CGame : public LComponent, public LSettings {
 
@@ -31,10 +44,14 @@ private:
   LSpriteRenderer *m_pRenderer = nullptr; ///< Pointer to renderer.
   CTileManager *m_pTileManager = nullptr;
   CPlayer *m_pPlayer = nullptr;
+  b2World *mWorld;  // Box2D physics world
+  ContactListener *m_listener = nullptr;
+  std::vector<b2Body *> m_debugBodies;
+  std::vector<CBullet *> m_bullets;
+
 
 
   void FollowCamera();       ///< Make camera follow player character.
-
 
 	CInventoryManager* m_pInventory = nullptr; ///< Pointer to inventory manager.
 
@@ -46,11 +63,15 @@ private:
     void RenderFrame(); ///< Render an animation frame.
     void DrawFrameRateText(); ///< Draw frame rate text to screen.
  public:
-  ~CGame(); ///< Destructor.
+    std::vector<b2Body *> m_PhysicsTiles;
+  void RegisterDebugBody(b2Body *b);
 
+  ~CGame(); ///< Destructor.
+  void SpawnBulletFromPlayer();
   void Initialize();   ///< Initialize the game.
   void ProcessFrame(); ///< Process an animation frame.
   void Release();      ///< Release the renderer.
 }; // CGame
+
 
 #endif //__L4RC_GAME_GAME_H__

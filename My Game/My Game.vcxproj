@@ -71,8 +71,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>Game</TargetName>
-    <IncludePath>$(LARCENGINE_DIR)\Inc;$(DIRECTXTK12_DIR)\Src;$(DIRECTXTK12_DIR)\Inc;$(IncludePath)</IncludePath>
-    <LibraryPath>$(LARCENGINE_DIR)\$(Platform)\$(Configuration)\;$(DIRECTXTK12LIB_DIR)\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LARCENGINE_DIR)\Inc;$(DIRECTXTK12_DIR)\Src;$(DIRECTXTK12_DIR)\Inc;$(BOX2D_DIR)\Inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LARCENGINE_DIR)\$(Platform)\$(Configuration)\;$(DIRECTXTK12LIB_DIR)\$(Platform)\$(Configuration)\;$(BOX2D_DIR)\build\$(Platform)\$(Configuration)\ALL_BUILD;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
@@ -87,8 +87,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>Game</TargetName>
-    <IncludePath>$(LARCENGINE_DIR)\Inc;$(DIRECTXTK12_DIR)\Src;$(DIRECTXTK12_DIR)\Inc;$(IncludePath)</IncludePath>
-    <LibraryPath>$(LARCENGINE_DIR)\$(Platform)\$(Configuration)\;$(DIRECTXTK12LIB_DIR)\$(Platform)\$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LARCENGINE_DIR)\Inc;$(DIRECTXTK12_DIR)\Src;$(DIRECTXTK12_DIR)\Inc;$(BOX2D_DIR)\Inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LARCENGINE_DIR)\$(Platform)\$(Configuration)\;$(DIRECTXTK12LIB_DIR)\$(Platform)\$(Configuration)\;$(BOX2D_DIR)\build\$(Platform)\$(Configuration)\ALL_BUILD;$(LibraryPath)</LibraryPath>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\</IntDir>
@@ -111,12 +111,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(BOX2D_DIR)\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
-      <AdditionalDependencies>Engine.lib;d3d12.lib;dxgi.lib;dxguid.lib;uuid.lib;runtimeobject.lib;DirectXTK12.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Engine.lib;box2d.lib;d3d12.lib;dxgi.lib;dxguid.lib;uuid.lib;runtimeobject.lib;DirectXTK12.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(BOX2D_DIR)\build\bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)Game.exe</OutputFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
     </Link>
@@ -147,14 +147,14 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(BOX2D_DIR)\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Engine.lib;d3d12.lib;dxgi.lib;dxguid.lib;uuid.lib;runtimeobject.lib;DirectXTK12.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Engine.lib;box2d.lib;d3d12.lib;dxgi.lib;dxguid.lib;uuid.lib;runtimeobject.lib;DirectXTK12.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(BOX2D_DIR)\build\bin\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)Game.exe</OutputFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InventoryManager.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDefines.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="InventoryManager.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Player.h" />
