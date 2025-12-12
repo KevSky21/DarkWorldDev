@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|solutionrelative:My Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Bullet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|solutionrelative:My Game\\Bullet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -27,10 +31,6 @@
       "RelativeMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|solutionrelative:My Game\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|solutionrelative:My Game\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\TileManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{B17DD474-1083-417F-82FA-F698D98CB918}|My Game\\My Game.vcxproj|solutionrelative:My Game\\TileManager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -46,24 +46,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Bullet.cpp",
               "DocumentMoniker": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Bullet.cpp",
               "RelativeDocumentMoniker": "My Game\\Bullet.cpp",
-              "ToolTip": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Bullet.cpp*",
-              "RelativeToolTip": "My Game\\Bullet.cpp*",
+              "ToolTip": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Bullet.cpp",
+              "RelativeToolTip": "My Game\\Bullet.cpp",
               "ViewState": "AgIAAA0AAAAAAAAAAAAgwB8AAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-12T20:02:59.382Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-12T20:02:59.382Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Bullet.h",
               "DocumentMoniker": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Bullet.h",
               "RelativeDocumentMoniker": "My Game\\Bullet.h",
@@ -71,12 +70,11 @@
               "RelativeToolTip": "My Game\\Bullet.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-12T20:01:42.676Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-12T20:01:42.676Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Game.cpp",
               "DocumentMoniker": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Game.cpp",
               "RelativeDocumentMoniker": "My Game\\Game.cpp",
@@ -84,12 +82,11 @@
               "RelativeToolTip": "My Game\\Game.cpp",
               "ViewState": "AgIAAM4BAAAAAAAAAAAIwPABAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-03T14:48:40.504Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T14:48:40.504Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "GameDefines.h",
               "DocumentMoniker": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\GameDefines.h",
               "RelativeDocumentMoniker": "My Game\\GameDefines.h",
@@ -97,12 +94,11 @@
               "RelativeToolTip": "My Game\\GameDefines.h",
               "ViewState": "AgIAAAoAAAAAAAAAAAAgwCMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-11T18:31:53.988Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T18:31:53.988Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Game.h",
               "DocumentMoniker": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Game.h",
               "RelativeDocumentMoniker": "My Game\\Game.h",
@@ -110,25 +106,24 @@
               "RelativeToolTip": "My Game\\Game.h",
               "ViewState": "AgIAAAwAAAAAAAAAAAAmwA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-03T14:47:25.919Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T14:47:25.919Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "Player.cpp",
               "DocumentMoniker": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Player.cpp",
               "RelativeDocumentMoniker": "My Game\\Player.cpp",
               "ToolTip": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Player.cpp",
               "RelativeToolTip": "My Game\\Player.cpp",
-              "ViewState": "AgIAABoAAAAAAAAAAAAIwDEAAAATAAAAAAAAAA==",
+              "ViewState": "AgIAAGgAAAAAAAAAAAAIwHkAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-03T14:36:28.145Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Player.h",
               "DocumentMoniker": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Player.h",
               "RelativeDocumentMoniker": "My Game\\Player.h",
@@ -136,8 +131,7 @@
               "RelativeToolTip": "My Game\\Player.h",
               "ViewState": "AgIAACkAAAAAAAAAAAAqwDIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-11T05:18:44.518Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T05:18:44.518Z"
             },
             {
               "$type": "Document",
@@ -149,8 +143,7 @@
               "RelativeToolTip": "My Game\\TileManager.cpp",
               "ViewState": "AgIAAA4AAAAAAAAAAAAIwGcAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-03T14:53:24.971Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T14:53:24.971Z"
             },
             {
               "$type": "Document",
@@ -162,8 +155,7 @@
               "RelativeToolTip": "My Game\\TileManager.h",
               "ViewState": "AgIAAAcAAAAAAAAAAAAgwCcAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-03T16:01:33.303Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T16:01:33.303Z"
             }
           ]
         }

@@ -58,8 +58,7 @@
               "RelativeToolTip": "My Game\\Bullet.cpp",
               "ViewState": "AgIAAA0AAAAAAAAAAAAgwB8AAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-12T20:02:59.382Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-12T20:02:59.382Z"
             },
             {
               "$type": "Document",
@@ -71,8 +70,7 @@
               "RelativeToolTip": "My Game\\Bullet.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-12T20:01:42.676Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-12T20:01:42.676Z"
             },
             {
               "$type": "Document",
@@ -84,8 +82,7 @@
               "RelativeToolTip": "My Game\\Game.cpp",
               "ViewState": "AgIAAM4BAAAAAAAAAAAIwPABAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-03T14:48:40.504Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T14:48:40.504Z"
             },
             {
               "$type": "Document",
@@ -97,8 +94,7 @@
               "RelativeToolTip": "My Game\\GameDefines.h",
               "ViewState": "AgIAAAoAAAAAAAAAAAAgwCMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-11T18:31:53.988Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T18:31:53.988Z"
             },
             {
               "$type": "Document",
@@ -110,8 +106,7 @@
               "RelativeToolTip": "My Game\\Game.h",
               "ViewState": "AgIAAAwAAAAAAAAAAAAmwA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-03T14:47:25.919Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T14:47:25.919Z"
             },
             {
               "$type": "Document",
@@ -119,8 +114,8 @@
               "Title": "Player.cpp",
               "DocumentMoniker": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Player.cpp",
               "RelativeDocumentMoniker": "My Game\\Player.cpp",
-              "ToolTip": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Player.cpp*",
-              "RelativeToolTip": "My Game\\Player.cpp*",
+              "ToolTip": "C:\\Users\\Kyle. Schoby\\Documents\\GitHub\\DarkWorldDev\\My Game\\Player.cpp",
+              "RelativeToolTip": "My Game\\Player.cpp",
               "ViewState": "AgIAAGgAAAAAAAAAAAAIwHkAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-11-03T14:36:28.145Z",
@@ -136,8 +131,7 @@
               "RelativeToolTip": "My Game\\Player.h",
               "ViewState": "AgIAACkAAAAAAAAAAAAqwDIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-11T05:18:44.518Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-11T05:18:44.518Z"
             },
             {
               "$type": "Document",
@@ -149,8 +143,7 @@
               "RelativeToolTip": "My Game\\TileManager.cpp",
               "ViewState": "AgIAAA4AAAAAAAAAAAAIwGcAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-03T14:53:24.971Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T14:53:24.971Z"
             },
             {
               "$type": "Document",
@@ -162,8 +155,7 @@
               "RelativeToolTip": "My Game\\TileManager.h",
               "ViewState": "AgIAAAcAAAAAAAAAAAAgwCcAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-11-03T16:01:33.303Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-03T16:01:33.303Z"
             }
           ]
         }
